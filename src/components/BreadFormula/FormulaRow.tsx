@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { InputMode } from "./BreadFormula";
 const innerCellStyling = "w-20 inline-block";
 
 type InputProps = {
@@ -30,14 +31,14 @@ const WeightInput = (props: InputProps) => {
 }                
 
 type FormulaRowProps = {
-    ingredient: string,
+    name: string,
     initialValue: number,
     totalFlourWeight: number,
-    isWeightInputs?: boolean
+    inputMode: InputMode
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
-    const { ingredient, initialValue, totalFlourWeight, isWeightInputs } = props;
+    const { name, initialValue, totalFlourWeight, inputMode } = props;
     const [value, setValue] = useState<number>(initialValue);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,16 +48,16 @@ const FormulaRow = (props: FormulaRowProps) => {
 
     return (
         <tr>
-            <td>{ingredient}</td>
+            <td>{name}</td>
             { 
-                isWeightInputs ? 
-                    <WeightInput
+                (inputMode === 'ratio') ? 
+                    <RatioInput 
                         value={value}
                         totalFlourWeight={totalFlourWeight}
                         handleChange={handleChange}
                     />
                 :
-                    <RatioInput 
+                    <WeightInput
                         value={value}
                         totalFlourWeight={totalFlourWeight}
                         handleChange={handleChange}

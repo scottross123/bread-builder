@@ -1,15 +1,39 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
+import { InputMode } from "./BreadFormula";
 import FormulaRow from "./FormulaRow";
 
-const OverallTable = () => {
-    const innerCellStyling = "w-16 inline-block"
-    const [ratio, setRatio] = useState<number>(60);
-    const totalFlourWeight = 1000;
+type Ingredient = {
+    id: string,
+    name: string,
+    ratio: number
+}
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target?.value);
-        setRatio(value);
-    }
+const ingredients: Ingredient[] = [
+    {
+        id: "ing1",
+        name: "Water",
+        ratio: 60
+    },
+    {
+        id: "ing2",
+        name: "Salt",
+        ratio: 2
+    },
+    {
+        id: "ing3",
+        name: "Yeast",
+        ratio: 1
+    },
+]
+
+type OverallTableProps = {
+    inputMode: InputMode
+}
+
+const OverallTable = (props: OverallTableProps) => {
+    const { inputMode } = props;
+    const innerCellStyling = "w-16 inline-block"
+    const totalFlourWeight = 1000;
 
     return (
         <table className="border-collapse border">
@@ -29,9 +53,21 @@ const OverallTable = () => {
                     <td><p className={innerCellStyling}>100.00</p>%</td>
                     <td>{totalFlourWeight}g</td>
                 </tr>
-                   <FormulaRow ingredient={"Water"} initialValue={600} totalFlourWeight={totalFlourWeight} /> 
-                   <FormulaRow ingredient={"Salt"} initialValue={2} totalFlourWeight={totalFlourWeight} /> 
-                   <FormulaRow ingredient={"Yeast"} initialValue={1} totalFlourWeight={totalFlourWeight} /> 
+
+                {
+                    ingredients.map((ingredient: Ingredient) => {
+                        const { id, name, ratio } = ingredient;
+                        return (
+                            <FormulaRow
+                                key={id}
+                                name={name}
+                                initialValue={ratio}
+                                totalFlourWeight={totalFlourWeight}
+                                inputMode={inputMode}
+                            />
+                        );
+                    })
+                }
             </tbody>
             <tfoot className="text-left">
                 <tr>
