@@ -1,11 +1,9 @@
-import FormulaTable from "../components/FormulaTable";
+import BreadFormula from "../components/BreadFormula/BreadFormula";
 
 const EditRecipePage = () => {
     return (
-        <div className="flex">
-            <FormulaTable />
-            <FormulaTable />
-            <FormulaTable />
+        <div>
+            <BreadFormula />
         </div>
     );
 };
