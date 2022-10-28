@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from "react";
+import FormulaRow from "./FormulaRow";
 
 const OverallTable = () => {
     const innerCellStyling = "w-16 inline-block"
     const [ratio, setRatio] = useState<number>(60);
+    const totalFlourWeight = 1000;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target?.value);
@@ -18,32 +20,20 @@ const OverallTable = () => {
                 <tr>
                     <th>Ingredients</th>
                     <th>%</th>
-                    <th>Weight</th>
+                    <th>grams</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>White Flour</td>
-                    <td><div className={innerCellStyling}>100.00</div>%</td>
-                    <td>1000g</td>
+                    <td><p className={innerCellStyling}>100.00</p>%</td>
+                    <td>{totalFlourWeight}g</td>
                 </tr>
-                <tr>
-                    <td>Water</td>
-                    <td><input className={innerCellStyling} type="number" value={ratio + ".00"} onChange={handleChange} />%</td>
-                    <td>{ratio * 10}g</td>
-                </tr>
-                <tr>
-                    <td>Salt</td>
-                    <td><input className={innerCellStyling} type="number" value="2.00" />%</td>
-                    <td>20g</td>
-                </tr>
-                <tr>
-                    <td>Yeast</td>
-                    <td><input className={innerCellStyling} type="number" value="1.00" />%</td>
-                    <td>10g</td>
-                </tr>
+                   <FormulaRow ingredient={"Water"} initialValue={600} totalFlourWeight={totalFlourWeight} /> 
+                   <FormulaRow ingredient={"Salt"} initialValue={2} totalFlourWeight={totalFlourWeight} /> 
+                   <FormulaRow ingredient={"Yeast"} initialValue={1} totalFlourWeight={totalFlourWeight} /> 
             </tbody>
-            <tfoot>
+            <tfoot className="text-left">
                 <tr>
                     <th>Totals</th>
                     <th><div className={innerCellStyling}>163.00</div>%</th>
