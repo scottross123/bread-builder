@@ -27,13 +27,16 @@ const ingredients: Ingredient[] = [
 ]
 
 type OverallTableProps = {
-    inputMode: InputMode
+    inputMode: InputMode,
+    totalDoughWeight: number
 }
 
 const OverallTable = (props: OverallTableProps) => {
-    const { inputMode } = props;
+    const { inputMode, totalDoughWeight } = props;
     const innerCellStyling = "w-16 inline-block"
-    const totalFlourWeight = 1000;
+    const totalRatio = ingredients.reduce((ratioSum, { ratio }) => ratioSum + ratio, 1);
+    const totalPercentage = totalRatio * 100;
+    const totalFlourWeight = Math.round(totalDoughWeight / totalRatio);
 
     return (
         <table className="border-collapse border">
@@ -72,8 +75,8 @@ const OverallTable = (props: OverallTableProps) => {
             <tfoot className="text-left">
                 <tr>
                     <th>Totals</th>
-                    <th><div className={innerCellStyling}>163.00</div>%</th>
-                    <th>1630g</th>
+                    <th><p className={innerCellStyling}>{totalPercentage}</p>%</th>
+                    <th>{totalDoughWeight}g</th>
                 </tr>
             </tfoot>
         </table>

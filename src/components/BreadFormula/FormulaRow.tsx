@@ -11,7 +11,7 @@ const RatioInput = (props: InputProps) => {
     const { ratio, totalFlourWeight } = props;
     const [percent, setPercent] = useState<number>(ratio * 100);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => setPercent(parseInt(e.target?.value));
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setPercent(parseInt(event.target.value));
 
     return (
         <>
@@ -25,7 +25,7 @@ const WeightInput = (props: InputProps) => {
     const { ratio, totalFlourWeight } = props;
     const [weight, setWeight] = useState<number>(ratio * totalFlourWeight);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => setWeight(parseInt(e.target?.value));
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setWeight(parseInt(event.target.value));
 
     return (
         <>
