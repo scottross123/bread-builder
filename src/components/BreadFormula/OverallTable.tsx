@@ -12,17 +12,17 @@ const ingredients: Ingredient[] = [
     {
         id: "ing1",
         name: "Water",
-        ratio: 60
+        ratio: .6
     },
     {
         id: "ing2",
         name: "Salt",
-        ratio: 2
+        ratio: .02
     },
     {
         id: "ing3",
         name: "Yeast",
-        ratio: 1
+        ratio: .01
     },
 ]
 
@@ -61,7 +61,7 @@ const OverallTable = (props: OverallTableProps) => {
                             <FormulaRow
                                 key={id}
                                 name={name}
-                                initialValue={ratio}
+                                ratio={ratio}
                                 totalFlourWeight={totalFlourWeight}
                                 inputMode={inputMode}
                             />

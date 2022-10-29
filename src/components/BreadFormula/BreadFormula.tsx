@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 import InputModeSelection from "./InputModeSelection";
 import OverallTable from "./OverallTable";
 
-export type InputMode = 'ratio' | 'weight';
+export type InputMode = "percent" | 'weight';
 
 const BreadFormula = () => {
-    const [inputMode, setInputMode] = useState<InputMode>("ratio");
+    const [inputMode, setInputMode] = useState<InputMode>("percent");
 
     return (
         <div className="">

@@ -16,14 +16,14 @@ const InputModeSelection = (props: InputModeSelectionProps) => {
 
     return (
         <div>
-            <label htmlFor="ratio">Ratio</label>
+            <label htmlFor="percent">Ratio</label>
             <input 
-                id="ratio" 
+                id="percent" 
                 type="radio" 
                 name="mode" 
-                value="ratio" 
+                value="percent" 
                 onChange={handleChange} 
-                defaultChecked={inputMode === 'ratio'} 
+                defaultChecked={inputMode === "percent"} 
             />
             <label htmlFor="weight">Weight</label>
             <input 
