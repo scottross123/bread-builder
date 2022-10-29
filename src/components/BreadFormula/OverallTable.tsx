@@ -1,31 +1,14 @@
-import { Ingredient } from "../../types";
+import { Ingredient, InputMode } from "../../types";
 import FormulaRow from "./FormulaRow";
 
-const ingredients: Ingredient[] = [
-    {
-        id: "ing1",
-        name: "Water",
-        ratio: .6
-    },
-    {
-        id: "ing2",
-        name: "Salt",
-        ratio: .02
-    },
-    {
-        id: "ing3",
-        name: "Yeast",
-        ratio: .01
-    },
-]
-
 type OverallTableProps = {
+    ingredients: Ingredient[],
     inputMode: InputMode,
     totalDoughWeight: number
 }
 
 const OverallTable = (props: OverallTableProps) => {
-    const { inputMode, totalDoughWeight } = props;
+    const { ingredients, inputMode, totalDoughWeight } = props;
     const innerCellStyling = "w-16 inline-block"
     const totalRatio = ingredients.reduce((ratioSum, { ratio }) => ratioSum + ratio, 1);
     const totalPercentage = totalRatio * 100;
