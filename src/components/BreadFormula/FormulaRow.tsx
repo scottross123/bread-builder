@@ -35,7 +35,7 @@ const WeightInput = (props: InputProps) => {
     );
 }                
 
-type FormulaRowProps = {
+export type FormulaRowProps = {
     name: string,
     ratio: number,
     totalFlourWeight: number,

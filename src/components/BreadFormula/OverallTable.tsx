@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { InputMode } from "./BreadFormula";
 import FormulaRow from "./FormulaRow";
 

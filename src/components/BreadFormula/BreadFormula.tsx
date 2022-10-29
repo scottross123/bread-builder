@@ -11,7 +11,7 @@ const BreadFormula = () => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setTotalDoughWeight(parseInt(event.target.value));
 
     return (
-        <div className="">
+        <div data-testid="bread-formula" className="">
             <OverallTable inputMode={inputMode} totalDoughWeight={totalDoughWeight} />
             <input type="number" value={totalDoughWeight} onChange={handleChange} />
             <InputModeSelection inputMode={inputMode} setInputMode={setInputMode} />
