@@ -1,4 +1,4 @@
-import BreadFormula from "../components/BreadFormula/BreadFormula";
+import BreadFormula from "../components/BreadFormula";
 
 const EditRecipePage = () => {
     return (

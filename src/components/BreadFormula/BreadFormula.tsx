@@ -1,8 +1,7 @@
 import { ChangeEvent, useState } from "react";
+import { InputMode } from "../../types";
 import InputModeSelection from "./InputModeSelection";
 import OverallTable from "./OverallTable";
-
-export type InputMode = "percent" | 'weight';
 
 const BreadFormula = () => {
     const [inputMode, setInputMode] = useState<InputMode>("percent");

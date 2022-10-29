@@ -1,11 +1,5 @@
-import { InputMode } from "./BreadFormula";
+import { Ingredient } from "../../types";
 import FormulaRow from "./FormulaRow";
-
-type Ingredient = {
-    id: string,
-    name: string,
-    ratio: number
-}
 
 const ingredients: Ingredient[] = [
     {
