@@ -1,4 +1,4 @@
-import { Ingredient, InputMode } from "../../types";
+import { Ingredient, InputMode } from "../types";
 import FormulaRow from "./FormulaRow";
 
 type OverallTableProps = {

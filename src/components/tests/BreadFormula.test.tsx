@@ -1,6 +1,6 @@
 import { expect, it, describe, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import BreadFormula from "../BreadFormula/BreadFormula";
+import BreadFormula from "../BreadFormula";
 import { Ingredient } from "../../types";
 
 describe("test BreadFormula renders properly", () => {

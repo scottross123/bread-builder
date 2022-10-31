@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { InputMode } from "./BreadFormula";
+import { InputMode } from "../types";
 const innerCellStyling = "w-20 inline-block";
 
 type InputProps = {

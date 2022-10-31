@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { Ingredient, InputMode } from "../../types";
+import { Ingredient, InputMode } from "../types";
 import InputModeSelection from "./InputModeSelection";
 import OverallTable from "./OverallTable";
 
