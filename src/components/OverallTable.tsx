@@ -5,7 +5,7 @@ type OverallTableProps = {
     ingredients: Ingredient[],
     inputMode: InputMode,
     totalDoughWeight: number,
-    changePercent: () => void
+    changePercent: (id: string, newPercent: number) => void
 }
 
 const OverallTable = (props: OverallTableProps) => {

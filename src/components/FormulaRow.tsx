@@ -7,7 +7,7 @@ type InputProps = {
     id: string,
     ratio: number,
     totalFlourWeight: number,
-    changePercent: (id: string, percent: number) => void
+    changePercent: (id: string, newPercent: number) => void
 }
 
 const RatioInput = (props: InputProps) => {
@@ -27,7 +27,7 @@ const RatioInput = (props: InputProps) => {
 const WeightInput = (props: InputProps) => {
     const { ratio, totalFlourWeight } = props;
     const weight = ratio * totalFlourWeight;
-    
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setWeight(parseInt(event.target.value));
 
     return (

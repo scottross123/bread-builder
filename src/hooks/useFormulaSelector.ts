@@ -8,12 +8,11 @@ const useFormulaSelector = (formula: Formula) => {
             (ratioSum, { ratio }) =>
                 ratioSum + ratio, 1
             );
-    }, [formula.ingredients.byId]);
+    }, [formula.ingredients]);
 
-    const selectTotalPercentage = () => { 
-        console.log("total percentage waas recaaulcauted");
+    const selectTotalPercentage = useMemo(() => { 
         return selectTotalRatio * 100
-    }
+    }, [formula.ingredients]);
 
     const selectFlourWeight = useMemo(() => {
         const totalDoughWeight = formula.totalDoughWeight;

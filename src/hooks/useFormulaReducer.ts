@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { Formula } from "../types";
 
-type ActionType = "change-percent" | "change-weight";
+type ActionType = "change-percent" | "change-weight" | "change-tdw";
 
 type FormulaAction = {
     type: ActionType;
@@ -43,6 +43,13 @@ const useFormulaReducer = (initialFormula: Formula) => {
                     
             //     }
             // }
+            case "change-tdw": {
+                const totalDoughWeight = payload;
+                return {
+                    ...formula,
+                    totalDoughWeight: totalDoughWeight
+                }
+            }
         }
         return formula; 
     }
@@ -50,7 +57,6 @@ const useFormulaReducer = (initialFormula: Formula) => {
     const [formula, dispatch] = useReducer(formulaReducer, initialFormula);
 
     const changePercent = (id: string, newPercent: number) => {
-        console.table({id, newPercent})
         dispatch({
             type: "change-percent",
             payload: {
@@ -58,10 +64,18 @@ const useFormulaReducer = (initialFormula: Formula) => {
                 percent: newPercent,
             },
         });
-        //console.log(formula)
+    }
+
+    const changeTotalDoughWeight = (newTotalDoughWeight: number) => {
+        console.log("new", newTotalDoughWeight)
+        dispatch({
+            type: "change-tdw",
+            payload: newTotalDoughWeight
+        });
+        console.log("form", formula)
     }
     
-    return {formula, changePercent };
+    return { formula, changePercent, changeTotalDoughWeight };
 }
 
 export default useFormulaReducer;
