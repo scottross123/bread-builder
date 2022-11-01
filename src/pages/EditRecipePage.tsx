@@ -1,6 +1,6 @@
 import BreadFormula from "../components/BreadFormula";
-import { useFormula } from "../hooks/useFormula";
 import { Formula, Ingredient } from "../types";
+import { useFormulaReducer, useFormulaSelector } from "../hooks";
 
 // const ingredients: Ingredient[] = [
 //     {
@@ -56,7 +56,9 @@ const exampleFormula: Formula = {
 
 
 const EditRecipePage = () => {
-    const {formula, changePercent} = useFormula(exampleFormula);
+    const { formula, changePercent } = useFormulaReducer(exampleFormula);
+    const { selectFlourWeight, selectTotalPercentage, selectTotalRatio } = useFormulaSelector(formula);
+    console.log(selectFlourWeight(), selectTotalPercentage(), selectTotalRatio())
     return (
         <div>
             <BreadFormula 

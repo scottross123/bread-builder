@@ -8,10 +8,9 @@ type FormulaAction = {
     payload: any;
 }
 
-type FormulaState = Formula;
+const useFormulaReducer = (initialFormula: Formula) => {
 
-export const useFormula = (initialFormula: FormulaState) => {
-    const formulaReducer = (formula: FormulaState, action: FormulaAction) => {
+    const formulaReducer = (formula: Formula, action: FormulaAction) => {
         const { type, payload } = action;
         
         switch (type) {
@@ -34,6 +33,16 @@ export const useFormula = (initialFormula: FormulaState) => {
                     }
                 }
             } 
+            // case "change-weight": {
+            //     const { id, weight } = payload;
+            //     const ingredients = formula.ingredients;
+            //     const byId = formula.ingredients.byId;
+            //     const ingredientById = formula.ingredients.byId[id];
+            //     const totalFlourWeight = 
+            //     return {
+                    
+            //     }
+            // }
         }
         return formula; 
     }
@@ -52,5 +61,7 @@ export const useFormula = (initialFormula: FormulaState) => {
         //console.log(formula)
     }
     
-    return {formula, changePercent};
+    return {formula, changePercent };
 }
+
+export default useFormulaReducer;
