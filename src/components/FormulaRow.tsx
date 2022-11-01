@@ -1,17 +1,20 @@
 import { ChangeEvent, useState } from "react";
 import { InputMode } from "../types";
+
 const innerCellStyling = "w-20 inline-block";
 
 type InputProps = {
+    id: string,
     ratio: number,
     totalFlourWeight: number,
+    changePercent: (id: string, percent: number) => void
 }
 
 const RatioInput = (props: InputProps) => {
-    const { ratio, totalFlourWeight } = props;
-    const [percent, setPercent] = useState<number>(ratio * 100);
+    const { ratio, totalFlourWeight, changePercent, id } = props;
+    const percent = ratio * 100;
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setPercent(parseInt(event.target.value));
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => changePercent(id, parseInt(event.target.value))
 
     return (
         <>
@@ -23,8 +26,8 @@ const RatioInput = (props: InputProps) => {
 
 const WeightInput = (props: InputProps) => {
     const { ratio, totalFlourWeight } = props;
-    const [weight, setWeight] = useState<number>(ratio * totalFlourWeight);
-
+    const weight = ratio * totalFlourWeight;
+    
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setWeight(parseInt(event.target.value));
 
     return (
@@ -36,14 +39,16 @@ const WeightInput = (props: InputProps) => {
 }                
 
 export type FormulaRowProps = {
+    id: string,
     name: string,
     ratio: number,
     totalFlourWeight: number,
-    inputMode: InputMode
+    inputMode: InputMode,
+    changePercent: () => void
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
-    const { name, ratio, totalFlourWeight, inputMode } = props;
+    const { name, ratio, totalFlourWeight, inputMode, id, changePercent } = props;
 
     return (
         <tr>
@@ -51,13 +56,17 @@ const FormulaRow = (props: FormulaRowProps) => {
             { 
                 (inputMode === "percent") ? 
                     <RatioInput 
+                        id={id}
                         ratio={ratio}
                         totalFlourWeight={totalFlourWeight}
+                        changePercent={changePercent}
                     />
                 :
                     <WeightInput
+                        id={id}
                         ratio={ratio}
                         totalFlourWeight={totalFlourWeight}
+                        changePercent={changePercent}
                     />
             }             
         </tr>

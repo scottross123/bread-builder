@@ -1,28 +1,30 @@
 import { ChangeEvent, useState } from "react";
-import { Ingredient, InputMode } from "../types";
+import { Formula, Ingredient, InputMode } from "../types";
 import InputModeSelection from "./InputModeSelection";
 import OverallTable from "./OverallTable";
 
 type BreadFormulaProps = {
-    ingredients: Ingredient[],
-    initialTotalDoughWeight: number,
+    formula: Formula,
+    changePercent: () => void
 }
 
 const BreadFormula = (props: BreadFormulaProps) => {
-    const { ingredients, initialTotalDoughWeight } = props;    
+    const { formula: { totalDoughWeight, flours, ingredients }, changePercent } = props;
     const [inputMode, setInputMode] = useState<InputMode>("percent");
-    const [totalDoughWeight, setTotalDoughWeight] = useState<number>(initialTotalDoughWeight);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setTotalDoughWeight(parseInt(event.target.value));
+    const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
+    console.log(ingredientsList)
+    console.log(props.formula)
+    //const handleChange = (event: ChangeEvent<HTMLInputElement>) => setTotalDoughWeight(parseInt(event.target.value));
 
     return (
         <div data-testid="bread-formula" className="">
             <OverallTable 
-                ingredients={ingredients} 
+                ingredients={ingredientsList} 
                 inputMode={inputMode} 
                 totalDoughWeight={totalDoughWeight} 
+                changePercent={changePercent}
             />
-            <input type="number" value={totalDoughWeight} onChange={handleChange} />
+            {/* <input type="number" value={totalDoughWeight} onChange={handleChange} /> */}
             <InputModeSelection inputMode={inputMode} setInputMode={setInputMode} />
         </div>
     );
