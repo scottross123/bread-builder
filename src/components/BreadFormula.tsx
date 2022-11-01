@@ -21,12 +21,15 @@ const BreadFormula = (props: BreadFormulaProps) => {
     } = props;
     const [inputMode, setInputMode] = useState<InputMode>("percent");
     const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
+    const floursList: Ingredient[] = Object.values(flours.byId);
+    
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => changeTotalDoughWeight(parseInt(event.target.value));
 
     return (
         <div data-testid="bread-formula" className="">
             <OverallTable 
                 ingredients={ingredientsList} 
+                flours={floursList}
                 inputMode={inputMode} 
                 totalDoughWeight={totalDoughWeight} 
                 changePercent={changePercent}
