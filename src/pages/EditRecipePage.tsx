@@ -58,7 +58,7 @@ const exampleFormula: Formula = {
 const EditRecipePage = () => {
     const { formula, changePercent } = useFormulaReducer(exampleFormula);
     const { selectFlourWeight, selectTotalPercentage, selectTotalRatio } = useFormulaSelector(formula);
-    console.log(selectFlourWeight(), selectTotalPercentage(), selectTotalRatio())
+    console.log(selectFlourWeight, selectTotalPercentage(), selectTotalRatio)
     return (
         <div>
             <BreadFormula 
