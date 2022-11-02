@@ -48,10 +48,9 @@ const EditRecipePage = () => {
     const { 
         selectTotalFlourWeight, 
         selectTotalPercentage, 
-        selectTotalRatio 
     } = useFormulaSelector(formula);
 
-    console.log(selectTotalFlourWeight, selectTotalPercentage, selectTotalRatio)
+    // console.log(selectTotalFlourWeight, selectTotalPercentage)
     return (
         <div>
             <BreadFormula 
@@ -59,6 +58,8 @@ const EditRecipePage = () => {
                 changePercent={changePercent}
                 changeWeight={changeWeight}
                 changeTotalDoughWeight={changeTotalDoughWeight}
+                selectTotalFlourWeight={selectTotalFlourWeight}
+                selectTotalPercentage={selectTotalPercentage}
             />
         </div>
     );

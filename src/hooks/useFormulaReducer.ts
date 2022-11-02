@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { Formula } from "../types";
+import { formatNumber } from "../utils";
 import useFormulaSelector from "./useFormulaSelector";
 
 type ActionType = "change-percent" | "change-weight" | "change-tdw";
@@ -18,9 +19,11 @@ const useFormulaReducer = (initialFormula: Formula) => {
         switch (type) {
             case "change-percent": {
                 const { id, percent } = payload;
+
                 const ingredients = formula.ingredients;
                 const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
+
                 return {
                     ...formula,
                     ingredients: {
@@ -29,7 +32,7 @@ const useFormulaReducer = (initialFormula: Formula) => {
                             ...byId,
                             [id]: {
                                 ...ingredientById,
-                                ratio: percent / 100,
+                                ratio: formatNumber(percent / 100),
                             }
                         },
                     }
@@ -55,11 +58,11 @@ const useFormulaReducer = (initialFormula: Formula) => {
                             ...byId,
                             [id]: {
                                 ...ingredientById,
-                                ratio: weight / totalFlourWeight,
+                                ratio: formatNumber(weight / totalFlourWeight),
                             }
                         },
                     },
-                    totalDoughWeight: totalDoughWeight - weightDifference,
+                    totalDoughWeight: formatNumber(totalDoughWeight - weightDifference),
                 }
             }
             case "change-tdw": {

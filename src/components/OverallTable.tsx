@@ -8,6 +8,8 @@ type OverallTableProps = {
     totalDoughWeight: number,
     changePercent: (id: string, newPercent: number) => void,
     changeWeight: (id: string, newWeight: number) => void,
+    selectTotalFlourWeight: number,
+    selectTotalPercentage: number,    
 }
 
 const OverallTable = (props: OverallTableProps) => {
@@ -17,12 +19,11 @@ const OverallTable = (props: OverallTableProps) => {
         inputMode, 
         totalDoughWeight, 
         changePercent,
-        changeWeight, 
+        changeWeight,
+        selectTotalFlourWeight,
+        selectTotalPercentage,
     } = props;
     const innerCellStyling = "w-16 inline-block"
-    const totalRatio = ingredients.reduce((ratioSum, { ratio }) => ratioSum + ratio, 1);
-    const totalPercentage = totalRatio * 100;
-    const totalFlourWeight = Math.round(totalDoughWeight / totalRatio);
 
     return (
         <table className="border-collapse border">
@@ -44,7 +45,7 @@ const OverallTable = (props: OverallTableProps) => {
                             <tr key={id}>
                                 <td>{name}</td>
                                 <td>{ratio * 100}</td>
-                                <td>{ratio * totalFlourWeight}</td>
+                                <td>{ratio * selectTotalFlourWeight}</td>
                             </tr>
                         );
                     })
@@ -56,7 +57,7 @@ const OverallTable = (props: OverallTableProps) => {
                             <FormulaRow
                                 key={ingredient.id}
                                 ingredient={ingredient}
-                                totalFlourWeight={totalFlourWeight}
+                                selectTotalFlourWeight={selectTotalFlourWeight}
                                 inputMode={inputMode}
                                 changePercent={changePercent}
                                 changeWeight={changeWeight}
@@ -68,7 +69,7 @@ const OverallTable = (props: OverallTableProps) => {
             <tfoot className="text-left">
                 <tr>
                     <th>Totals</th>
-                    <th><p className={innerCellStyling}>{totalPercentage}</p>%</th>
+                    <th><p className={innerCellStyling}>{selectTotalPercentage}</p>%</th>
                     <th>{totalDoughWeight}g</th>
                 </tr>
             </tfoot>
