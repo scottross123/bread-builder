@@ -14,16 +14,16 @@ const useFormulaSelector = (formula: Formula) => {
         return selectTotalRatio * 100
     }, [formula.ingredients]);
 
-    const selectFlourWeight = useMemo(() => {
+    const selectTotalFlourWeight = useMemo(() => {
         const totalDoughWeight = formula.totalDoughWeight;
         const totalRatio = selectTotalRatio;
-        return Math.round(totalDoughWeight / totalRatio);
+        return totalDoughWeight / totalRatio;
     }, [formula]);
 
     return {
         selectTotalRatio,
         selectTotalPercentage,
-        selectFlourWeight,
+        selectTotalFlourWeight,
     }
 }
 

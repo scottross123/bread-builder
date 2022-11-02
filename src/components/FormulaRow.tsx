@@ -1,75 +1,54 @@
 import { ChangeEvent, useState } from "react";
-import { InputMode } from "../types";
+import { Ingredient, InputMode } from "../types";
 
 const innerCellStyling = "w-20 inline-block";
 
-type InputProps = {
-    id: string,
-    ratio: number,
-    totalFlourWeight: number,
-    changePercent: (id: string, newPercent: number) => void
-}
-
-const RatioInput = (props: InputProps) => {
-    const { ratio, totalFlourWeight, changePercent, id } = props;
-    const percent = ratio * 100;
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => changePercent(id, parseInt(event.target.value))
-
-    return (
-        <>
-            <td><input className={innerCellStyling} type="number" value={percent} onChange={handleChange} />%</td>
-            <td><input className={innerCellStyling} type="number" value={percent * totalFlourWeight / 100} readOnly />g</td>
-        </>
-    );
-}
-
-const WeightInput = (props: InputProps) => {
-    const { ratio, totalFlourWeight } = props;
-    const weight = ratio * totalFlourWeight;
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setWeight(parseInt(event.target.value));
-
-    return (
-        <>
-            <td><input className={innerCellStyling} type="number" value={weight / totalFlourWeight * 100} readOnly />%</td>
-            <td><input className={innerCellStyling} type="number" value={weight} onChange={handleChange} />g</td>
-        </>
-    );
-}                
-
 export type FormulaRowProps = {
-    id: string,
-    name: string,
-    ratio: number,
+    ingredient: Ingredient, 
     totalFlourWeight: number,
     inputMode: InputMode,
-    changePercent: () => void
+    changePercent: (id: string, newPercent: number) => void,
+    changeWeight: (id: string, newWeight: number) => void,
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
-    const { name, ratio, totalFlourWeight, inputMode, id, changePercent } = props;
+    const {
+        ingredient: {
+            id,
+            name,
+            ratio
+        },
+        totalFlourWeight, 
+        inputMode, 
+        changePercent,
+        changeWeight,
+    } = props;
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(event.target.value);
+        if (inputMode === "percent") return changePercent(id, value);
+        if (inputMode === "weight") return changeWeight(id, value);
+    }
+    
+    const value = inputMode === "percent" ?  ratio * 100 : ratio * totalFlourWeight; 
 
     return (
         <tr>
             <td>{name}</td>
-            { 
-                (inputMode === "percent") ? 
-                    <RatioInput 
-                        id={id}
-                        ratio={ratio}
-                        totalFlourWeight={totalFlourWeight}
-                        changePercent={changePercent}
-                    />
-                :
-                    <WeightInput
-                        id={id}
-                        ratio={ratio}
-                        totalFlourWeight={totalFlourWeight}
-                        changePercent={changePercent}
-                    />
-            }             
-        </tr>
+            {
+                inputMode === "percent" ? (
+                    <>
+                        <td><input className={innerCellStyling} type="number" value={value} onChange={handleChange} step="any" />%</td>
+                        <td><input className={innerCellStyling} type="number" value={value * totalFlourWeight / 100} readOnly step="any" />g</td>
+                    </>
+                ) : (
+                    <>
+                        <td><input className={innerCellStyling} type="number" value={value / totalFlourWeight * 100} readOnly step="any" />%</td>
+                        <td><input className={innerCellStyling} type="number" value={value} onChange={handleChange} step="any" />g</td>
+                    </>
+                )
+            }
+        </tr>        
     );
 }
 

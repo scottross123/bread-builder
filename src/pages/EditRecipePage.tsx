@@ -2,24 +2,6 @@ import BreadFormula from "../components/BreadFormula";
 import { Formula, Ingredient } from "../types";
 import { useFormulaReducer, useFormulaSelector } from "../hooks";
 
-// const ingredients: Ingredient[] = [
-//     {
-//         id: "ing1",
-//         name: "Water",
-//         ratio: .6
-//     },
-//     {
-//         id: "ing2",
-//         name: "Salt",
-//         ratio: .02
-//     },
-//     {
-//         id: "ing3",
-//         name: "Yeast",
-//         ratio: .01
-//     },
-// ]
-
 const exampleFormula: Formula = {
     totalDoughWeight: 1630,
     flours: {
@@ -56,14 +38,26 @@ const exampleFormula: Formula = {
 
 
 const EditRecipePage = () => {
-    const { formula, changePercent, changeTotalDoughWeight } = useFormulaReducer(exampleFormula);
-    const { selectFlourWeight, selectTotalPercentage, selectTotalRatio } = useFormulaSelector(formula);
-    console.log(selectFlourWeight, selectTotalPercentage, selectTotalRatio)
+    const { 
+        formula, 
+        changePercent, 
+        changeWeight,
+        changeTotalDoughWeight 
+    } = useFormulaReducer(exampleFormula);
+    
+    const { 
+        selectTotalFlourWeight, 
+        selectTotalPercentage, 
+        selectTotalRatio 
+    } = useFormulaSelector(formula);
+
+    console.log(selectTotalFlourWeight, selectTotalPercentage, selectTotalRatio)
     return (
         <div>
             <BreadFormula 
                 formula={formula}
                 changePercent={changePercent}
+                changeWeight={changeWeight}
                 changeTotalDoughWeight={changeTotalDoughWeight}
             />
         </div>

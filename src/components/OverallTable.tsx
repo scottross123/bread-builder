@@ -6,11 +6,19 @@ type OverallTableProps = {
     flours: Ingredient[],
     inputMode: InputMode,
     totalDoughWeight: number,
-    changePercent: (id: string, newPercent: number) => void
+    changePercent: (id: string, newPercent: number) => void,
+    changeWeight: (id: string, newWeight: number) => void,
 }
 
 const OverallTable = (props: OverallTableProps) => {
-    const { ingredients, flours, inputMode, totalDoughWeight, changePercent } = props;
+    const { 
+        ingredients, 
+        flours, 
+        inputMode, 
+        totalDoughWeight, 
+        changePercent,
+        changeWeight, 
+    } = props;
     const innerCellStyling = "w-16 inline-block"
     const totalRatio = ingredients.reduce((ratioSum, { ratio }) => ratioSum + ratio, 1);
     const totalPercentage = totalRatio * 100;
@@ -44,16 +52,14 @@ const OverallTable = (props: OverallTableProps) => {
 
                 {
                     ingredients.map((ingredient: Ingredient) => {
-                        const { id, name, ratio } = ingredient;
                         return (
                             <FormulaRow
-                                key={id}
-                                id={id}
-                                name={name}
-                                ratio={ratio}
+                                key={ingredient.id}
+                                ingredient={ingredient}
                                 totalFlourWeight={totalFlourWeight}
                                 inputMode={inputMode}
                                 changePercent={changePercent}
+                                changeWeight={changeWeight}
                             />
                         );
                     })
