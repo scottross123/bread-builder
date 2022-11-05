@@ -1,4 +1,5 @@
 import { Ingredient, InputMode } from "../types";
+import { formatNumber } from "../utils";
 import FormulaRow from "./FormulaRow";
 
 type OverallTableProps = {
@@ -23,7 +24,8 @@ const OverallTable = (props: OverallTableProps) => {
         selectTotalFlourWeight,
         selectTotalPercentage,
     } = props;
-    const innerCellStyling = "w-16 inline-block"
+    const innerCellStyling = "w-16 inline-block";
+
 
     return (
         <table className="border-collapse border">
