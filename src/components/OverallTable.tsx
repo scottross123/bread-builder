@@ -47,7 +47,7 @@ const OverallTable = (props: OverallTableProps) => {
                             <tr key={id}>
                                 <td>{name}</td>
                                 <td>{ratio * 100}</td>
-                                <td>{ratio * selectTotalFlourWeight}</td>
+                                <td>{formatNumber(ratio * selectTotalFlourWeight)}</td>
                             </tr>
                         );
                     })
@@ -71,8 +71,8 @@ const OverallTable = (props: OverallTableProps) => {
             <tfoot className="text-left">
                 <tr>
                     <th>Totals</th>
-                    <th><p className={innerCellStyling}>{selectTotalPercentage}</p>%</th>
-                    <th>{totalDoughWeight}g</th>
+                    <th><p className={innerCellStyling}>{formatNumber(selectTotalPercentage)}</p>%</th>
+                    <th>{formatNumber(totalDoughWeight)}g</th>
                 </tr>
             </tfoot>
         </table>

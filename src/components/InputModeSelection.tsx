@@ -10,7 +10,6 @@ const InputModeSelection = (props: InputModeSelectionProps) => {
     const { inputMode, setInputMode } = props;
     
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(event.currentTarget?.value as InputMode);
         setInputMode(event.currentTarget?.value as InputMode);
     }
 

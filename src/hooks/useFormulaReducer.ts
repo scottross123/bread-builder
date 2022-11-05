@@ -1,7 +1,5 @@
 import { useReducer } from "react";
 import { Formula } from "../types";
-import { formatNumber } from "../utils";
-import useFormulaSelector from "./useFormulaSelector";
 
 type ActionType = "change-percent" | "change-weight" | "change-tdw";
 
@@ -11,7 +9,6 @@ type FormulaAction = {
 }
 
 const useFormulaReducer = (initialFormula: Formula) => {
-    const { selectTotalFlourWeight } = useFormulaSelector(initialFormula);
 
     const formulaReducer = (formula: Formula, action: FormulaAction) => {
         const { type, payload } = action;
@@ -32,24 +29,27 @@ const useFormulaReducer = (initialFormula: Formula) => {
                             ...byId,
                             [id]: {
                                 ...ingredientById,
-                                ratio: formatNumber(percent / 100),
+                                ratio: percent / 100,
                             }
                         },
                     }
                 }
             } 
             case "change-weight": {
-                const { id, weight } = payload;
+                const { id, weight, totalFlourWeight } = payload;
+                console.log("new weight", weight)
 
                 const totalDoughWeight = formula.totalDoughWeight;
                 const ingredients = formula.ingredients;
                 const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
 
-                const totalFlourWeight = selectTotalFlourWeight;                
+                console.log("total flour weight", totalFlourWeight);
+                console.log("current percent", ingredientById.ratio * totalFlourWeight)
                 const weightDifference = ingredientById.ratio * totalFlourWeight - weight;
+
+                console.log("weight diff", weightDifference)
                 
-                console.log("weight", weightDifference);
                 return {
                     ...formula,
                     ingredients: {
@@ -58,11 +58,11 @@ const useFormulaReducer = (initialFormula: Formula) => {
                             ...byId,
                             [id]: {
                                 ...ingredientById,
-                                ratio: formatNumber(weight / totalFlourWeight),
+                                ratio: weight / totalFlourWeight,
                             }
                         },
                     },
-                    totalDoughWeight: formatNumber(totalDoughWeight - weightDifference),
+                    totalDoughWeight: totalDoughWeight - weightDifference,
                 }
             }
             case "change-tdw": {
@@ -88,12 +88,13 @@ const useFormulaReducer = (initialFormula: Formula) => {
         });
     }
 
-    const changeWeight = (id: string, newWeight: number) => {
+    const changeWeight = (id: string, newWeight: number, totalFlourWeight: number) => {
         dispatch({
             type: "change-weight",
             payload: {
                 id: id,
                 weight: newWeight,
+                totalFlourWeight: totalFlourWeight,
             },
         });
     }

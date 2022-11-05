@@ -9,7 +9,7 @@ export type FormulaRowProps = {
     selectTotalFlourWeight: number,
     inputMode: InputMode,
     changePercent: (id: string, newPercent: number) => void,
-    changeWeight: (id: string, newWeight: number) => void,
+    changeWeight: (id: string, newWeight: number, selectTotalFlourWeight: number) => void,
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
@@ -26,44 +26,30 @@ const FormulaRow = (props: FormulaRowProps) => {
     } = props;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = formatNumber(parseInt(event.target.value));
+        const value = parseFloat(event.target.value);
 
         if (inputMode === "percent") {
-            setPercent(value);
-            setWeight(formatNumber(value * selectTotalFlourWeight / 100))
             return changePercent(id, value);
         }
         
         if (inputMode === "weight") { 
-            setWeight(value);
-            setPercent(formatNumber(value / selectTotalFlourWeight * 100))
-            return changeWeight(id, value);
+            return changeWeight(id, value, selectTotalFlourWeight);
         }
     }
+
+
+    const percent = ratio * 100;
+    const weight = ratio * selectTotalFlourWeight;
+    const isPercentReadOnly = inputMode === "percent";
     
-    const [percent, setPercent] = useState(formatNumber(ratio * 100));
-    const [weight, setWeight] = useState(formatNumber(ratio * selectTotalFlourWeight));
-    
-    console.log("percent", percent); 
-    console.log("weight", weight); 
-    // const value = inputMode === "percent" ?  formatNumber(ratio * 100) : formatNumber(ratio * selectTotalFlourWeight); 
+    //console.log("percent", percent); 
+    //console.log("weight", weight); 
 
     return (
         <tr>
             <td>{name}</td>
-            {
-                inputMode === "percent" ? (
-                    <>
-                        <td><input className={innerCellStyling} type="number" value={percent} onChange={handleChange} step="any" />%</td>
-                        <td><input className={innerCellStyling} type="number" value={weight} readOnly step="any" />g</td>
-                    </>
-                ) : (
-                    <>
-                        <td><input className={innerCellStyling} type="number" value={percent} readOnly step="any" />%</td>
-                        <td><input className={innerCellStyling} type="number" value={weight} onChange={handleChange} step={1} />g</td>
-                    </>
-                )
-            }
+            <td><input className={innerCellStyling} type="number" value={formatNumber(percent)} onChange={handleChange} readOnly={!isPercentReadOnly} />%</td>
+            <td><input className={innerCellStyling} type="number" value={formatNumber(weight)} onChange={handleChange} readOnly={isPercentReadOnly} />g</td>
         </tr>        
     );
 }
