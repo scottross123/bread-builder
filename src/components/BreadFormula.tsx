@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from "react";
 import { Formula, Ingredient, InputMode } from "../types";
 import { formatNumber } from "../utils";
+import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
+import LockDoughWeight from "./LockDoughWeight";
 import OverallTable from "./OverallTable";
 
 type BreadFormulaProps = {
@@ -30,8 +32,6 @@ const BreadFormula = (props: BreadFormulaProps) => {
     const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
     const floursList: Ingredient[] = flours.allIds.map((id: string) => flours.byId[id]); 
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => changeTotalDoughWeight(parseFloat(event.target.value));
-
     return (
         <div data-testid="bread-formula" className="">
             <OverallTable 
@@ -44,7 +44,8 @@ const BreadFormula = (props: BreadFormulaProps) => {
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalPercentage={selectTotalPercentage}
             />
-            <input type="number" value={formatNumber(totalDoughWeight)} onChange={handleChange}/>
+            <DoughWeightControls totalDoughWeight={totalDoughWeight} changeTotalDoughWeight={changeTotalDoughWeight} />
+            <LockDoughWeight isDoughWeightLocked={true} />
             <InputModeSelection inputMode={inputMode} setInputMode={setInputMode} />
         </div>
     );
