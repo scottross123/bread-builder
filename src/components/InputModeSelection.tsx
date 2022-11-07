@@ -9,9 +9,7 @@ type InputModeSelectionProps = {
 const InputModeSelection = (props: InputModeSelectionProps) => {
     const { inputMode, setInputMode } = props;
     
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputMode(event.currentTarget?.value as InputMode);
-    }
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => setInputMode(event.currentTarget?.value as InputMode);
 
     return (
         <div>

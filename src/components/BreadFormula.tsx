@@ -29,9 +29,12 @@ const BreadFormula = (props: BreadFormulaProps) => {
         selectTotalPercentage,
     } = props;
     const [inputMode, setInputMode] = useState<InputMode>("percent");
+    const [isDoughWeightLocked, setIsDoughWeightLocked] = useState(true);
+    
     const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
     const floursList: Ingredient[] = flours.allIds.map((id: string) => flours.byId[id]); 
 
+    console.log("locked", isDoughWeightLocked);
     return (
         <div data-testid="bread-formula" className="">
             <OverallTable 
@@ -44,9 +47,18 @@ const BreadFormula = (props: BreadFormulaProps) => {
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalPercentage={selectTotalPercentage}
             />
-            <DoughWeightControls totalDoughWeight={totalDoughWeight} changeTotalDoughWeight={changeTotalDoughWeight} />
-            <LockDoughWeight isDoughWeightLocked={true} />
-            <InputModeSelection inputMode={inputMode} setInputMode={setInputMode} />
+            <DoughWeightControls 
+                totalDoughWeight={totalDoughWeight} 
+                changeTotalDoughWeight={changeTotalDoughWeight} 
+            />
+            <LockDoughWeight 
+                isDoughWeightLocked={isDoughWeightLocked} 
+                setIsDoughWeightLocked={setIsDoughWeightLocked}
+            />
+            <InputModeSelection 
+                inputMode={inputMode} 
+                setInputMode={setInputMode} 
+            />
         </div>
     );
 };
