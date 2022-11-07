@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 type LockDoughWeightProps = {
     isDoughWeightLocked: boolean,
 }
@@ -5,10 +7,12 @@ type LockDoughWeightProps = {
 const LockDoughWeight = (props: LockDoughWeightProps) => {
     const { isDoughWeightLocked } = props;
 
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => 0
+
     return (
         <label htmlFor="lock-dough-weight">
             Lock Dough Weight
-            <input id="lock-dough-weight" type="checkbox" />
+            <input id="lock-dough-weight" type="checkbox" checked={isDoughWeightLocked} onChange={handleChange} />
         </label>
     )
 }
