@@ -13,11 +13,31 @@ const useFormulaReducer = (initialFormula: Formula) => {
         
         switch (type) {
             case "change-percent": {
-                const { id, percent } = payload;
+                const { id, percent, totalFlourWeight } = payload;
 
                 const ingredients = formula.ingredients;
                 const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
+                const newRatio = percent / 100;
+                if (totalFlourWeight) {
+                    const totalDoughWeight = formula.totalDoughWeight;
+                    const weight = percent * totalFlourWeight / 100;
+                    const weightDifference = ingredientById.ratio * totalFlourWeight - weight;
+                    return {
+                        ...formula,
+                        ingredients: {
+                            ...ingredients,
+                            byId: {
+                                ...byId,
+                                [id]: {
+                                    ...ingredientById,
+                                    ratio: newRatio,
+                                },
+                            },
+                        },
+                        totalDoughWeight: totalDoughWeight - weightDifference,
+                    }
+                }
 
                 return {
                     ...formula,
@@ -27,7 +47,7 @@ const useFormulaReducer = (initialFormula: Formula) => {
                             ...byId,
                             [id]: {
                                 ...ingredientById,
-                                ratio: percent / 100,
+                                ratio: newRatio,
                             }
                         },
                     }
@@ -42,11 +62,11 @@ const useFormulaReducer = (initialFormula: Formula) => {
                 const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
 
-                console.log("total flour weight", totalFlourWeight);
-                console.log("current percent", ingredientById.ratio * totalFlourWeight)
+                // console.log("total flour weight", totalFlourWeight);
+                // console.log("current percent", ingredientById.ratio * totalFlourWeight)
                 const weightDifference = ingredientById.ratio * totalFlourWeight - weight;
 
-                console.log("weight diff", weightDifference)
+                // console.log("weight diff", weightDifference)
                 
                 return {
                     ...formula,
@@ -76,12 +96,13 @@ const useFormulaReducer = (initialFormula: Formula) => {
     
     const [formula, dispatch] = useReducer(formulaReducer, initialFormula);
 
-    const changePercent = (id: string, percent: number) => {
+    const changePercent = (id: string, percent: number, totalFlourWeight?: number) => {
         dispatch({
             type: "change-percent",
             payload: {
                 id: id,
                 percent: percent,
+                totalFlourWeight: totalFlourWeight,
             },
         });
     }
