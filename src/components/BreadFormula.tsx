@@ -1,6 +1,5 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Formula, Ingredient, InputMode } from "../types";
-import { formatNumber } from "../utils";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
@@ -8,8 +7,8 @@ import OverallTable from "./OverallTable";
 
 type BreadFormulaProps = {
     formula: Formula,
-    changePercent: (id: string, newPercent: number) => void,
-    changeWeight: (id: string, newWeight: number) => void,
+    changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
+    changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     changeTotalDoughWeight: (newTotalDoughWeight: number) => void,
     selectTotalFlourWeight: number,
     selectTotalPercentage: number,
@@ -34,13 +33,13 @@ const BreadFormula = (props: BreadFormulaProps) => {
     const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
     const floursList: Ingredient[] = flours.allIds.map((id: string) => flours.byId[id]); 
 
-    console.log("locked", isDoughWeightLocked);
     return (
         <div data-testid="bread-formula" className="">
             <OverallTable 
                 ingredients={ingredientsList} 
                 flours={floursList}
                 inputMode={inputMode} 
+                isDoughWeightLocked={isDoughWeightLocked}
                 totalDoughWeight={totalDoughWeight} 
                 changePercent={changePercent}
                 changeWeight={changeWeight}
@@ -54,10 +53,13 @@ const BreadFormula = (props: BreadFormulaProps) => {
             <LockDoughWeight 
                 isDoughWeightLocked={isDoughWeightLocked} 
                 setIsDoughWeightLocked={setIsDoughWeightLocked}
+                inputMode={inputMode}
+                setInputMode={setInputMode}
             />
             <InputModeSelection 
                 inputMode={inputMode} 
                 setInputMode={setInputMode} 
+                isDoughWeightLocked={isDoughWeightLocked}
             />
         </div>
     );

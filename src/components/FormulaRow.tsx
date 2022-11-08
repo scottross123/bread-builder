@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { Ingredient, InputMode } from "../types";
 import { formatNumber } from "../utils";
 
@@ -8,8 +8,9 @@ export type FormulaRowProps = {
     ingredient: Ingredient, 
     selectTotalFlourWeight: number,
     inputMode: InputMode,
-    changePercent: (id: string, newPercent: number) => void,
-    changeWeight: (id: string, newWeight: number, selectTotalFlourWeight: number) => void,
+    isDoughWeightLocked: boolean,
+    changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
+    changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
@@ -21,6 +22,7 @@ const FormulaRow = (props: FormulaRowProps) => {
         },
         selectTotalFlourWeight, 
         inputMode, 
+        isDoughWeightLocked,
         changePercent,
         changeWeight,
     } = props;
@@ -29,6 +31,7 @@ const FormulaRow = (props: FormulaRowProps) => {
         const value = parseFloat(event.target.value);
 
         if (inputMode === "percent") {
+            if (!isDoughWeightLocked) return changePercent(id, value, selectTotalFlourWeight);
             return changePercent(id, value);
         }
         
@@ -42,14 +45,26 @@ const FormulaRow = (props: FormulaRowProps) => {
     const weight = ratio * selectTotalFlourWeight;
     const isPercentReadOnly = inputMode === "percent";
     
-    //console.log("percent", percent); 
-    //console.log("weight", weight); 
-
     return (
         <tr>
             <td>{name}</td>
-            <td><input className={innerCellStyling} type="number" value={formatNumber(percent)} onChange={handleChange} readOnly={!isPercentReadOnly} />%</td>
-            <td><input className={innerCellStyling} type="number" value={formatNumber(weight)} onChange={handleChange} readOnly={isPercentReadOnly} />g</td>
+            <td>
+                <input 
+                    className={innerCellStyling} 
+                    type="number" 
+                    value={formatNumber(percent)} 
+                    onChange={handleChange} 
+                    readOnly={!isPercentReadOnly} 
+                />%
+            </td>
+            <td>
+                <input 
+                    className={innerCellStyling} 
+                    type="number" 
+                    value={formatNumber(weight)} 
+                    onChange={handleChange} 
+                    readOnly={isPercentReadOnly} 
+                />g</td>
         </tr>        
     );
 }

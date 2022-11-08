@@ -6,9 +6,10 @@ type OverallTableProps = {
     ingredients: Ingredient[],
     flours: Ingredient[],
     inputMode: InputMode,
+    isDoughWeightLocked: boolean,
     totalDoughWeight: number,
-    changePercent: (id: string, newPercent: number) => void,
-    changeWeight: (id: string, newWeight: number) => void,
+    changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
+    changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     selectTotalFlourWeight: number,
     selectTotalPercentage: number,    
 }
@@ -18,6 +19,7 @@ const OverallTable = (props: OverallTableProps) => {
         ingredients, 
         flours, 
         inputMode, 
+        isDoughWeightLocked,
         totalDoughWeight, 
         changePercent,
         changeWeight,
@@ -61,6 +63,7 @@ const OverallTable = (props: OverallTableProps) => {
                                 ingredient={ingredient}
                                 selectTotalFlourWeight={selectTotalFlourWeight}
                                 inputMode={inputMode}
+                                isDoughWeightLocked={isDoughWeightLocked}
                                 changePercent={changePercent}
                                 changeWeight={changeWeight}
                             />
