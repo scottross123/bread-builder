@@ -12,7 +12,9 @@ export type Ingredient = {
 }
 
 export type Formula = {
-    totalDoughWeight: number,
+    unitQuantity: number,
+    unitWeight: number,
+    wasteFactor: number,
     flours: Entities<Ingredient>,
     ingredients: Entities<Ingredient>,
 }

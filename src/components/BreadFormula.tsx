@@ -9,7 +9,10 @@ type BreadFormulaProps = {
     formula: Formula,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
-    changeTotalDoughWeight: (newTotalDoughWeight: number) => void,
+    changeUnitWeight: (newUnitWeight: number) => void,
+    changeUnitQuantity: (newUnitQuantity: number) => void,
+    changeWasteFactor: (newWasteFactor: number) => void,
+    selectTotalDoughWeight: number,
     selectTotalFlourWeight: number,
     selectTotalPercentage: number,
 }
@@ -17,13 +20,18 @@ type BreadFormulaProps = {
 const BreadFormula = (props: BreadFormulaProps) => {
     const { 
         formula: { 
-            totalDoughWeight, 
+            unitQuantity,
+            unitWeight,
+            wasteFactor,
             flours, 
             ingredients 
         }, 
         changePercent,
         changeWeight,
-        changeTotalDoughWeight, 
+        changeUnitWeight,
+        changeUnitQuantity,
+        changeWasteFactor,
+        selectTotalDoughWeight,
         selectTotalFlourWeight,
         selectTotalPercentage,
     } = props;
@@ -40,15 +48,19 @@ const BreadFormula = (props: BreadFormulaProps) => {
                 flours={floursList}
                 inputMode={inputMode} 
                 isDoughWeightLocked={isDoughWeightLocked}
-                totalDoughWeight={totalDoughWeight} 
+                selectTotalDoughWeight={selectTotalDoughWeight}
                 changePercent={changePercent}
                 changeWeight={changeWeight}
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalPercentage={selectTotalPercentage}
             />
             <DoughWeightControls 
-                totalDoughWeight={totalDoughWeight} 
-                changeTotalDoughWeight={changeTotalDoughWeight} 
+                unitWeight={unitWeight}
+                unitQuantity={unitQuantity}
+                wasteFactor={wasteFactor}
+                changeUnitWeight={changeUnitWeight}
+                changeUnitQuantity={changeUnitQuantity}
+                changeWasteFactor={changeWasteFactor}
             />
             <LockDoughWeight 
                 isDoughWeightLocked={isDoughWeightLocked} 

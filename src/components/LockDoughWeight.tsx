@@ -9,13 +9,18 @@ type LockDoughWeightProps = {
 }
 
 const LockDoughWeight = (props: LockDoughWeightProps) => {
-    const { isDoughWeightLocked, setIsDoughWeightLocked, setInputMode, inputMode } = props;
+    const { 
+        isDoughWeightLocked, 
+        setIsDoughWeightLocked, 
+        setInputMode, 
+        inputMode 
+    } = props;
 
     const handleChange = () => {
         setIsDoughWeightLocked(!isDoughWeightLocked);
         if (!isDoughWeightLocked && inputMode === "weight") setInputMode("percent")
     }
-    
+
     return (
         <label htmlFor="lock-dough-weight">
             Lock Dough Weight

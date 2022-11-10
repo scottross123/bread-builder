@@ -4,38 +4,42 @@ import { Formula } from "../types";
 type FormulaAction = 
     | { type: "change-percent", payload: { id: string, percent: number, totalFlourWeight?: number } }
     | { type: "change-weight", payload: { id: string, weight: number, totalFlourWeight: number } }
-    | { type: "change-tdw", payload: number };
+    | { type: "change-tdw", payload: number }
+    | { type: "change-unit-weight", payload: number }
+    | { type: "change-unit-qty", payload: number }
+    | { type: "change-waste-factor", payload: number }
 
 const useFormulaReducer = (initialFormula: Formula) => {
 
     const formulaReducer = (formula: Formula, action: FormulaAction) => {
         const { type, payload } = action;
+
+        const ingredients = formula.ingredients;
+        const ingredientsById = formula.ingredients.byId;
+        const totalDoughWeight = formula.unitQuantity * formula.unitWeight * (formula.wasteFactor + 1);
         
         switch (type) {
             case "change-percent": {
                 const { id, percent, totalFlourWeight } = payload;
-
-                const ingredients = formula.ingredients;
-                const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
                 const newRatio = percent / 100;
+
                 if (totalFlourWeight) {
-                    const totalDoughWeight = formula.totalDoughWeight;
                     const weight = percent * totalFlourWeight / 100;
                     const weightDifference = ingredientById.ratio * totalFlourWeight - weight;
                     return {
                         ...formula,
+                        unitWeight: formula.unitWeight - (weightDifference / formula.unitQuantity),
                         ingredients: {
                             ...ingredients,
                             byId: {
-                                ...byId,
+                                ...ingredientsById,
                                 [id]: {
                                     ...ingredientById,
                                     ratio: newRatio,
                                 },
                             },
                         },
-                        totalDoughWeight: totalDoughWeight - weightDifference,
                     }
                 }
 
@@ -44,7 +48,7 @@ const useFormulaReducer = (initialFormula: Formula) => {
                     ingredients: {
                         ...ingredients,
                         byId: {
-                            ...byId,
+                            ...ingredientsById,
                             [id]: {
                                 ...ingredientById,
                                 ratio: newRatio,
@@ -55,40 +59,48 @@ const useFormulaReducer = (initialFormula: Formula) => {
             } 
             case "change-weight": {
                 const { id, weight, totalFlourWeight } = payload;
-                console.log("new weight", weight)
-
-                const totalDoughWeight = formula.totalDoughWeight;
-                const ingredients = formula.ingredients;
-                const byId = formula.ingredients.byId;
                 const ingredientById = formula.ingredients.byId[id];
-
-                // console.log("total flour weight", totalFlourWeight);
-                // console.log("current percent", ingredientById.ratio * totalFlourWeight)
                 const weightDifference = ingredientById.ratio * totalFlourWeight - weight;
-
-                // console.log("weight diff", weightDifference)
                 
                 return {
                     ...formula,
+                    unitWeight: formula.unitWeight + (weightDifference / formula.unitQuantity),
                     ingredients: {
                         ...ingredients,
                         byId: {
-                            ...byId,
+                            ...ingredientsById,
                             [id]: {
                                 ...ingredientById,
                                 ratio: weight / totalFlourWeight,
                             }
                         },
                     },
-                    totalDoughWeight: totalDoughWeight - weightDifference,
                 }
             }
-            case "change-tdw": {
-                const totalDoughWeight = payload;
+            case "change-unit-weight": {
+                const unitWeight = payload;
+
                 return {
                     ...formula,
-                    totalDoughWeight: totalDoughWeight
+                    unitWeight: unitWeight,
                 }
+            }
+            case "change-unit-qty": {
+                const unitQuantity = payload;
+
+                return {
+                    ...formula,
+                    unitQuantity: unitQuantity
+                }
+            }
+            case "change-waste-factor": {
+                const wasteFactor = payload;
+
+                return {
+                    ...formula,
+                    wasteFactor: wasteFactor / 100,
+                }
+
             }
         }
         return formula; 
@@ -118,16 +130,44 @@ const useFormulaReducer = (initialFormula: Formula) => {
         });
     }
 
-    const changeTotalDoughWeight = (newTotalDoughWeight: number) => {
+    /*const changeTotalDoughWeight = (newTotalDoughWeight: number) => {
         console.log("new", newTotalDoughWeight)
         dispatch({
             type: "change-tdw",
             payload: newTotalDoughWeight
         });
         console.log("form", formula)
+    }*/
+
+    const changeUnitWeight = (newUnitWeight: number) => {
+        dispatch({
+            type: "change-unit-weight",
+            payload: newUnitWeight,
+        });
+    }
+
+    const changeUnitQuantity = (newUnitQuantity: number) => {
+        dispatch({
+            type: "change-unit-qty",
+            payload: newUnitQuantity,
+        });
+    }
+
+    const changeWasteFactor = (newWasteFactor: number) => {
+        dispatch({
+            type: "change-waste-factor",
+            payload: newWasteFactor,
+        });
     }
     
-    return { formula, changePercent, changeWeight, changeTotalDoughWeight };
+    return { 
+        formula, 
+        changePercent, 
+        changeWeight, 
+        changeUnitWeight,
+        changeUnitQuantity,
+        changeWasteFactor,
+    };
 }
 
 export default useFormulaReducer;

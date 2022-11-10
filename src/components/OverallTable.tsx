@@ -7,11 +7,11 @@ type OverallTableProps = {
     flours: Ingredient[],
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
-    totalDoughWeight: number,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     selectTotalFlourWeight: number,
     selectTotalPercentage: number,    
+    selectTotalDoughWeight: number,
 }
 
 const OverallTable = (props: OverallTableProps) => {
@@ -20,11 +20,11 @@ const OverallTable = (props: OverallTableProps) => {
         flours, 
         inputMode, 
         isDoughWeightLocked,
-        totalDoughWeight, 
         changePercent,
         changeWeight,
         selectTotalFlourWeight,
         selectTotalPercentage,
+        selectTotalDoughWeight
     } = props;
     const innerCellStyling = "w-16 inline-block";
 
@@ -75,7 +75,7 @@ const OverallTable = (props: OverallTableProps) => {
                 <tr>
                     <th>Totals</th>
                     <th><p className={innerCellStyling}>{formatNumber(selectTotalPercentage)}</p>%</th>
-                    <th>{formatNumber(totalDoughWeight)}g</th>
+                    <th>{formatNumber(selectTotalDoughWeight)}g</th>
                 </tr>
             </tfoot>
         </table>

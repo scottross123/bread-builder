@@ -3,7 +3,9 @@ import { Formula, Ingredient } from "../types";
 import { useFormulaReducer, useFormulaSelector } from "../hooks";
 
 const exampleFormula: Formula = {
-    totalDoughWeight: 1630,
+    unitQuantity: 3,
+    unitWeight: 950,
+    wasteFactor: .02,
     flours: {
         byId: {
             "fl1": {
@@ -42,12 +44,15 @@ const EditRecipePage = () => {
         formula, 
         changePercent, 
         changeWeight,
-        changeTotalDoughWeight 
+        changeUnitQuantity,
+        changeUnitWeight,
+        changeWasteFactor,
     } = useFormulaReducer(exampleFormula);
     
     const { 
         selectTotalFlourWeight, 
         selectTotalPercentage, 
+        selectTotalDoughWeight,
     } = useFormulaSelector(formula);
 
     // console.log(selectTotalFlourWeight, selectTotalPercentage)
@@ -57,9 +62,12 @@ const EditRecipePage = () => {
                 formula={formula}
                 changePercent={changePercent}
                 changeWeight={changeWeight}
-                changeTotalDoughWeight={changeTotalDoughWeight}
+                changeUnitQuantity={changeUnitQuantity}
+                changeUnitWeight={changeUnitWeight}
+                changeWasteFactor={changeWasteFactor}
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalPercentage={selectTotalPercentage}
+                selectTotalDoughWeight={selectTotalDoughWeight}
             />
         </div>
     );
