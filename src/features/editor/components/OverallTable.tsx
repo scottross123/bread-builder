@@ -1,5 +1,5 @@
-import { Ingredient, InputMode } from "../types";
-import { formatNumber } from "../utils";
+import { Ingredient, InputMode } from "@/types/formula";
+import { formatNumber } from "@/utils";
 import FormulaRow from "./FormulaRow";
 
 type OverallTableProps = {

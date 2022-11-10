@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
-import { Ingredient, InputMode } from "../types";
-import { formatNumber } from "../utils";
+import { Ingredient, InputMode } from "@/types/formula";
+import { formatNumber } from "@/utils";
 
 const innerCellStyling = "w-20 inline-block";
 

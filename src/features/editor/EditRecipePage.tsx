@@ -1,6 +1,6 @@
-import BreadFormula from "../components/BreadFormula";
-import { Formula, Ingredient } from "../types";
-import { useFormulaReducer, useFormulaSelector } from "../hooks";
+import BreadFormula from "./components";
+import { Formula, Ingredient } from "@/types/formula";
+import { useFormulaReducer, useFormulaSelector } from "./hooks";
 
 const exampleFormula: Formula = {
     unitQuantity: 3,

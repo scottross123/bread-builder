@@ -1,4 +1,4 @@
-import EditRecipePage from "./pages/EditRecipePage";
+import EditRecipePage from "./features/editor/EditRecipePage";
 
 function App() {
     return (

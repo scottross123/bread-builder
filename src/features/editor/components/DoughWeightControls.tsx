@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { formatNumber } from "../utils";
+import { formatNumber } from "@/utils";
 
 type DoughWeightControlsProps = {
     unitWeight: number,

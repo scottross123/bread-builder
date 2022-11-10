@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Formula, Ingredient, InputMode } from "../types";
+import { Formula, Ingredient, InputMode } from "@/types/formula";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";

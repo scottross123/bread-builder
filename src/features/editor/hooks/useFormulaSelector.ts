@@ -1,4 +1,4 @@
-import { Formula } from "../types";
+import { Formula } from "../../../types/formula";
 import { useMemo } from "react";
 
 const useFormulaSelector = (formula: Formula) => {

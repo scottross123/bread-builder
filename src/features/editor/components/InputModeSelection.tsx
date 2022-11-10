@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { InputMode } from "../types";
+import { InputMode } from "@/types/formula";
 
 type InputModeSelectionProps = {
     inputMode: InputMode,

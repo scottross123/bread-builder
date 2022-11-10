@@ -1,7 +1,7 @@
 import { expect, it, describe, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import BreadFormula from "../BreadFormula";
-import { Ingredient } from "../../types";
+import { Ingredient } from "../../../../types/formula";
 
 describe("test BreadFormula renders properly", () => {
     

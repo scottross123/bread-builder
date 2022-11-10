@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Formula } from "../types";
+import { Formula, Ingredient } from "@/types/formula";
 
 type FormulaAction = 
     | { type: "change-percent", payload: { id: string, percent: number, totalFlourWeight?: number } }
@@ -8,6 +8,8 @@ type FormulaAction =
     | { type: "change-unit-weight", payload: number }
     | { type: "change-unit-qty", payload: number }
     | { type: "change-waste-factor", payload: number }
+    | { type: "add-ingredient", payload: Ingredient }
+    | { type: "remove-ingredient", payload: string }
 
 const useFormulaReducer = (initialFormula: Formula) => {
 
@@ -16,6 +18,7 @@ const useFormulaReducer = (initialFormula: Formula) => {
 
         const ingredients = formula.ingredients;
         const ingredientsById = formula.ingredients.byId;
+        const ingredientsAllIds = formula.ingredients.allIds;
         const totalDoughWeight = formula.unitQuantity * formula.unitWeight * (formula.wasteFactor + 1);
         
         switch (type) {
@@ -101,6 +104,35 @@ const useFormulaReducer = (initialFormula: Formula) => {
                     wasteFactor: wasteFactor / 100,
                 }
 
+            }
+            case "add-ingredient": {
+                const ingredient = payload;
+
+                return {
+                    ...formula,
+                    ingredients: {
+                        ...ingredients,
+                        byId: {
+                            ...ingredientsById,
+                            ingredient,
+                        },
+                        allIds: [ingredient.id, ...ingredientsAllIds].sort((a, b) => ingredientsById[a].ratio - ingredientsById[b].ratio)
+                    }
+                }
+            }
+            case "remove-ingredient": {
+                const id = payload;
+
+                return {
+                    ...formula,
+                    ingredients: {
+                        ...ingredients,
+                        byId: {
+                            ...ingredientsById,
+          
+                        },
+                    },
+                }
             }
         }
         return formula; 
