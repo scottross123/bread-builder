@@ -1,4 +1,4 @@
-import { Ingredient, InputMode } from "@/types/formula";
+import { Ingredient, InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import FormulaRow from "./FormulaRow";
 

@@ -1,8 +1,8 @@
 import BreadFormula from "./components";
-import { Formula, Ingredient } from "@/types/formula";
+import { Recipe, Ingredient } from "@/types/recipe";
 import { useFormulaReducer, useFormulaSelector } from "./hooks";
 
-const exampleFormula: Formula = {
+const exampleFormula: Recipe = {
     unitQuantity: 3,
     unitWeight: 950,
     wasteFactor: .02,

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Formula, Ingredient, InputMode } from "@/types/formula";
+import { Recipe, Ingredient, InputMode } from "@/types/recipe";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
 import OverallTable from "./OverallTable";
 
 type BreadFormulaProps = {
-    formula: Formula,
+    formula: Recipe,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     changeUnitWeight: (newUnitWeight: number) => void,

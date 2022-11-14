@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Formula, Ingredient } from "@/types/formula";
+import { Recipe, Ingredient } from "@/types/recipe";
 
 type FormulaAction = 
     | { type: "change-percent", payload: { id: string, percent: number, totalFlourWeight?: number } }
@@ -11,9 +11,9 @@ type FormulaAction =
     | { type: "add-ingredient", payload: Ingredient }
     | { type: "remove-ingredient", payload: string }
 
-const useFormulaReducer = (initialFormula: Formula) => {
+const useFormulaReducer = (initialFormula: Recipe) => {
 
-    const formulaReducer = (formula: Formula, action: FormulaAction) => {
+    const formulaReducer = (formula: Recipe, action: FormulaAction) => {
         const { type, payload } = action;
 
         const ingredients = formula.ingredients;

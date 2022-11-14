@@ -1,7 +1,7 @@
-import { Formula } from "../../../types/formula";
+import { Recipe } from "../../../types/recipe";
 import { useMemo } from "react";
 
-const useFormulaSelector = (formula: Formula) => {
+const useFormulaSelector = (formula: Recipe) => {
     const selectTotalDoughWeight = useMemo(() => {
         const { unitQuantity, unitWeight, wasteFactor } = formula;
         return unitQuantity * unitWeight * (wasteFactor + 1);

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { InputMode } from "@/types/formula";
+import { InputMode } from "@/types/recipe";
 
 type LockDoughWeightProps = {
     isDoughWeightLocked: boolean,

@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Ingredient, InputMode } from "@/types/formula";
+import { Ingredient, InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 
 const innerCellStyling = "w-20 inline-block";
