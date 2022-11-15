@@ -1,32 +1,27 @@
-/* type Entities<T> = {
-    byId: Record<string, T>,
-    allIds: string[],
-} */
-
-type Table<T> = {
+export type Table<T> = {
     byId: Record<string, T>,
     allIds: string[],
 }
 
 export type InputMode = "percent" | 'weight';
 /*
-export type Ingredient = {
+export type ingredient = {
     id: string,
     name: string,
     ratio: number
 }
 
-export type Formula = {
-    unitQuantity: number,
-    unitWeight: number,
-    wasteFactor: number,
-    flours: Entities<Ingredient>,
-    ingredients: Entities<Ingredient>,
+export type formula = {
+    unitquantity: number,
+    unitweight: number,
+    wastefactor: number,
+    flours: entities<ingredient>,
+    ingredients: entities<ingredient>,
 } */
 
-type IngredientCategory = "flour" | "fluid" | "starter" | "inclusion" | "other";
+export type IngredientCategory = "flour" | "fluid" | "starter" | "inclusion" | "other";
 
-type FormulaIngredient = {
+export type FormulaIngredient = {
     id: string,
     ingredientId: string,
     formulaId: string,
@@ -35,25 +30,27 @@ type FormulaIngredient = {
 
 type BaseFormula = {
     id: string,
-    formulaIngredients: string[],
+    primaryFlourId: string, // should correspond to an ingredient with ingredientCategory: 'flour'
+    formulaIngredientIds: string[],
 }
 
-type OverallFormula = BaseFormula & {
+export type OverallFormula = BaseFormula & {
     id: 'overall';
 };
 
-type Preferment = BaseFormula & {
+export type Preferment = BaseFormula & {
     preFermentedFlour: number,
 };
 
-type Soaker = BaseFormula;
+export type Soaker = BaseFormula;
 
-type Scald = BaseFormula;
+export type Scald = BaseFormula;
 
 export type Ingredient = {
     id: string,
     name: string,
     ingredientCategory: IngredientCategory, 
+    formulaIngredientIds: string[],
 }
 
 export type Recipe = {
@@ -61,11 +58,8 @@ export type Recipe = {
     unitWeight: number,
     wasteFactor: number,
     entities: {
-        overallFormula: OverallFormula,
         ingredients: Table<Ingredient>,
-        formulaIngredient: Table<FormulaIngredient>,
-        preferments?: Table<Preferment>,
-        soakers?: Table<Soaker>,
-        scalds?: Table<Scald>,
+        formulaIngredients: Table<FormulaIngredient>,
+        formulas: Table<OverallFormula | Preferment | Soaker | Scald>,
     }
 }

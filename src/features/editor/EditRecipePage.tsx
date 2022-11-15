@@ -1,72 +1,108 @@
-import BreadFormula from "./components";
-import { Recipe, Ingredient } from "@/types/recipe";
-import { useFormulaReducer, useFormulaSelector } from "./hooks";
+import BreadRecipe from "./components";
+import { Recipe } from "@/types/recipe";
+import { useRecipe } from "./hooks";
 
-const exampleFormula: Recipe = {
+const exampleRecipe: Recipe = {
     unitQuantity: 3,
     unitWeight: 950,
-    wasteFactor: .02,
-    flours: {
-        byId: {
-            "fl1": {
-                id: "fl1",
-                name: "white flour",
-                ratio: 1,
-            }
-        },
-        allIds: ["fl1"],
-    },
-    ingredients: {
-        byId: {
-            "ing1": {
-                id: "ing1",
-                name: "water",
-                ratio: .6,
+    wasteFactor: .03,
+    entities: {
+        ingredients: {
+            byId: {
+                "ing0": {
+                    id: "ing0",
+                    name: "bread flour",
+                    ingredientCategory: "flour",
+                    formulaIngredientIds: ["fi0"],
+                },
+                "ing1": {
+                    id: "ing1",
+                    name: "water",
+                    ingredientCategory: "fluid",
+                    formulaIngredientIds: ["fi1"],
+                },
+                "ing2": {
+                    id: "ing2",
+                    name: "salt",
+                    ingredientCategory: "other",
+                    formulaIngredientIds: ["fi2"],
+                },
+                "ing3": {
+                    id: "ing3",
+                    name: "yeast",
+                    ingredientCategory: "other",
+                    formulaIngredientIds: ["fi3"],
+                }
             },
-            "ing2": {
-                id: "ing2",
-                name: "salt",
-                ratio: .02,
-            },
-            "ing3": {
-                id: "ing3",
-                name: "yeast",
-                ratio: .01
-            }
+            allIds: ["ing1", "ing2", "ing3"],
         },
-        allIds: ["ing1", "ing2", "ing3"],
-    },
+        formulaIngredients: {
+            byId: {
+                fi0: {
+                    id: "fi0",
+                    ingredientId: "ing0",
+                    formulaId: "overall",
+                    ratio: 1,
+                },
+                fi1: {
+                    id: "fi1",
+                    ingredientId: "ing1",
+                    formulaId: "overall",
+                    ratio: .6,
+                },
+                fi2: {
+                    id: "fi2",
+                    ingredientId: "ing2",
+                    formulaId: "overall",
+                    ratio: .02,
+                },
+                fi3: {
+                    id: "fi3",
+                    ingredientId: "ing3",
+                    formulaId: "overall",
+                    ratio: .01
+                },
+            },
+            allIds: ["fi0", "fi1", "fi2", "fi3"],
+        },
+        formulas: {
+            byId: {
+                overall: {
+                    id: "overall",
+                    primaryFlourId: "fi0",
+                    formulaIngredientIds: ["fi0", "fi1", "fi2", "fi3"]
+                }
+            },
+            allIds: ["overall"]
+        }
+    }
 }
 
 
 const EditRecipePage = () => {
     const { 
-        formula, 
+        recipe, 
+        selectTotalDoughWeight,
+        selectTotalFlourWeight,
+        selectTotalRatio,
         changePercent, 
         changeWeight,
         changeUnitQuantity,
         changeUnitWeight,
         changeWasteFactor,
-    } = useFormulaReducer(exampleFormula);
-    
-    const { 
-        selectTotalFlourWeight, 
-        selectTotalPercentage, 
-        selectTotalDoughWeight,
-    } = useFormulaSelector(formula);
+    } = useRecipe(exampleRecipe);
 
-    // console.log(selectTotalFlourWeight, selectTotalPercentage)
     return (
         <div>
-            <BreadFormula 
-                formula={formula}
+            <BreadRecipe 
+                recipe={recipe}
                 changePercent={changePercent}
                 changeWeight={changeWeight}
                 changeUnitQuantity={changeUnitQuantity}
                 changeUnitWeight={changeUnitWeight}
                 changeWasteFactor={changeWasteFactor}
                 selectTotalFlourWeight={selectTotalFlourWeight}
-                selectTotalPercentage={selectTotalPercentage}
+                selectTotalRatio={selectTotalRatio}
                 selectTotalDoughWeight={selectTotalDoughWeight}
             />
         </div>
