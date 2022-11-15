@@ -1,22 +1,30 @@
 import { ChangeEvent } from "react";
-import { Ingredient, InputMode } from "@/types/formula";
+import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 
 const innerCellStyling = "w-20 inline-block";
 
 export type FormulaRowProps = {
-    ingredient: Ingredient, 
+    ingredient: { formulaIngredientId: string, name: string, ratio: number }, 
     selectTotalFlourWeight: number,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
-    changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
-    changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
+    changePercent:  (
+        formulaIngredientId: string, 
+        percent: number, 
+        totalFlourWeight?: number
+    ) => void,
+    changeWeight: (
+        formulaIngredientId: string, 
+        weight: number, 
+        totalFlourWeight: number
+    ) => void,
 }
 
 const FormulaRow = (props: FormulaRowProps) => {
     const {
         ingredient: {
-            id,
+            formulaIngredientId,
             name,
             ratio
         },
@@ -31,12 +39,13 @@ const FormulaRow = (props: FormulaRowProps) => {
         const value = parseFloat(event.target.value);
 
         if (inputMode === "percent") {
-            if (!isDoughWeightLocked) return changePercent(id, value, selectTotalFlourWeight);
-            return changePercent(id, value);
+            if (!isDoughWeightLocked) 
+                return changePercent(formulaIngredientId, value, selectTotalFlourWeight);
+            return changePercent(formulaIngredientId, value);
         }
         
         if (inputMode === "weight") { 
-            return changeWeight(id, value, selectTotalFlourWeight);
+            return changeWeight(formulaIngredientId, value, selectTotalFlourWeight);
         }
     }
 

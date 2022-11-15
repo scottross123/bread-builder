@@ -1,3 +1,4 @@
 import formatNumber from "./formatNumber";
+import { getUniqueId } from "./getUniqueId";
 
-export { formatNumber }
+export { formatNumber, getUniqueId }

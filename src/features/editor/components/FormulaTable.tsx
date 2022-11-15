@@ -1,33 +1,53 @@
-import { Ingredient, InputMode } from "@/types/formula";
+import { 
+    FormulaIngredient, 
+    Ingredient, 
+    InputMode, 
+    OverallFormula, 
+    Preferment, 
+    Scald, 
+    Soaker, 
+    Table 
+} from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import FormulaRow from "./FormulaRow";
 
-type OverallTableProps = {
-    ingredients: Ingredient[],
-    flours: Ingredient[],
+type FormulaTableProps = {
+    formula: OverallFormula | Preferment | Soaker | Scald,
+    formulaIngredients: Table<FormulaIngredient>,
+    ingredients: Table<Ingredient>,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     selectTotalFlourWeight: number,
-    selectTotalPercentage: number,    
+    selectTotalRatio: (formulaId: string) => number,    
     selectTotalDoughWeight: number,
 }
 
-const OverallTable = (props: OverallTableProps) => {
+const FormulaTable = (props: FormulaTableProps) => {
     const { 
-        ingredients, 
-        flours, 
+        formula,
+        formulaIngredients,
+        ingredients,
         inputMode, 
         isDoughWeightLocked,
         changePercent,
         changeWeight,
         selectTotalFlourWeight,
-        selectTotalPercentage,
+        selectTotalRatio,
         selectTotalDoughWeight
     } = props;
     const innerCellStyling = "w-16 inline-block";
 
+    const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
+        const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
+        const { name } = ingredients.byId[formulaIngredient.ingredientId];
+        return {
+            formulaIngredientId: formulaIngredientId,
+            name: name,
+            ratio: formulaIngredient.ratio,
+        }
+    });
 
     return (
         <table className="border-collapse border">
@@ -43,23 +63,10 @@ const OverallTable = (props: OverallTableProps) => {
             </thead>
             <tbody>
                 {
-                    flours.map((ingredient: Ingredient) => {
-                        const { id, name, ratio } = ingredient;
-                        return (
-                            <tr key={id}>
-                                <td>{name}</td>
-                                <td>{ratio * 100}</td>
-                                <td>{formatNumber(ratio * selectTotalFlourWeight)}</td>
-                            </tr>
-                        );
-                    })
-                }
-
-                {
-                    ingredients.map((ingredient: Ingredient) => {
+                    formulaIngredientsList.map((ingredient) => {
                         return (
                             <FormulaRow
-                                key={ingredient.id}
+                                key={ingredient.formulaIngredientId}
                                 ingredient={ingredient}
                                 selectTotalFlourWeight={selectTotalFlourWeight}
                                 inputMode={inputMode}
@@ -74,7 +81,7 @@ const OverallTable = (props: OverallTableProps) => {
             <tfoot className="text-left">
                 <tr>
                     <th>Totals</th>
-                    <th><p className={innerCellStyling}>{formatNumber(selectTotalPercentage)}</p>%</th>
+                    <th><p className={innerCellStyling}>{formatNumber(selectTotalRatio(formula.id) * 100)}</p>%</th>
                     <th>{formatNumber(selectTotalDoughWeight)}g</th>
                 </tr>
             </tfoot>
@@ -82,4 +89,4 @@ const OverallTable = (props: OverallTableProps) => {
     );
 }
 
-export default OverallTable;
+export default FormulaTable;

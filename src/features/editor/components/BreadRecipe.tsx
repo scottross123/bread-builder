@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Formula, Ingredient, InputMode } from "@/types/formula";
+import { Recipe, InputMode, OverallFormula } from "@/types/recipe";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
-import OverallTable from "./OverallTable";
+import FormulaTable from "./FormulaTable";
 
-type BreadFormulaProps = {
-    formula: Formula,
+type BreadRecipeProps = {
+    recipe: Recipe,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
     changeUnitWeight: (newUnitWeight: number) => void,
@@ -14,17 +14,20 @@ type BreadFormulaProps = {
     changeWasteFactor: (newWasteFactor: number) => void,
     selectTotalDoughWeight: number,
     selectTotalFlourWeight: number,
-    selectTotalPercentage: number,
+    selectTotalRatio: (formulaId: string) => number,
 }
 
-const BreadFormula = (props: BreadFormulaProps) => {
+const BreadRecipe = (props: BreadRecipeProps) => {
     const { 
-        formula: { 
+        recipe: { 
             unitQuantity,
             unitWeight,
             wasteFactor,
-            flours, 
-            ingredients 
+            entities: {
+                ingredients,
+                formulaIngredients,
+                formulas,
+            }    
         }, 
         changePercent,
         changeWeight,
@@ -33,26 +36,24 @@ const BreadFormula = (props: BreadFormulaProps) => {
         changeWasteFactor,
         selectTotalDoughWeight,
         selectTotalFlourWeight,
-        selectTotalPercentage,
+        selectTotalRatio,
     } = props;
     const [inputMode, setInputMode] = useState<InputMode>("percent");
     const [isDoughWeightLocked, setIsDoughWeightLocked] = useState(true);
-    
-    const ingredientsList: Ingredient[] = ingredients.allIds.map((id: string) => ingredients.byId[id]);
-    const floursList: Ingredient[] = flours.allIds.map((id: string) => flours.byId[id]); 
 
     return (
         <div data-testid="bread-formula" className="">
-            <OverallTable 
-                ingredients={ingredientsList} 
-                flours={floursList}
+            <FormulaTable 
+                formula={formulas.byId["overall"] as OverallFormula}
+                formulaIngredients={formulaIngredients}
+                ingredients={ingredients}
                 inputMode={inputMode} 
                 isDoughWeightLocked={isDoughWeightLocked}
                 selectTotalDoughWeight={selectTotalDoughWeight}
                 changePercent={changePercent}
                 changeWeight={changeWeight}
                 selectTotalFlourWeight={selectTotalFlourWeight}
-                selectTotalPercentage={selectTotalPercentage}
+                selectTotalRatio={selectTotalRatio}
             />
             <DoughWeightControls 
                 unitWeight={unitWeight}
@@ -77,4 +78,4 @@ const BreadFormula = (props: BreadFormulaProps) => {
     );
 };
 
-export default BreadFormula;
+export default BreadRecipe;

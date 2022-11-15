@@ -1,7 +1,7 @@
 import { expect, it, describe, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import BreadFormula from "../BreadFormula";
-import { Ingredient } from "../../../../types/formula";
+import BreadRecipe from "../BreadRecipe";
+import { Ingredient } from "../../../../types/recipe";
 
 describe("test BreadFormula renders properly", () => {
     
@@ -24,7 +24,7 @@ describe("test BreadFormula renders properly", () => {
     ]
 
     beforeEach(() => {
-        render(<BreadFormula ingredients={ingredients} initialTotalDoughWeight={2000} />);
+        render(<BreadRecipe ingredients={ingredients} initialTotalDoughWeight={2000} />);
     })
 
     it("example test, test if BreadFormula renders", () => {
