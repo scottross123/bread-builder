@@ -32,7 +32,8 @@ const useRecipe = (initialRecipe: Recipe) => {
     const changeWeight = (
         formulaIngredientId: string, 
         weight: number, 
-        totalFlourWeight: number
+        totalFlourWeight: number,
+        isFlour?: boolean
     ) => {
         dispatch({
             type: "change-weight",
@@ -40,6 +41,7 @@ const useRecipe = (initialRecipe: Recipe) => {
                 formulaIngredientId: formulaIngredientId,
                 weight: weight,
                 totalFlourWeight: totalFlourWeight,
+                isFlour: isFlour,
             },
         });
     }

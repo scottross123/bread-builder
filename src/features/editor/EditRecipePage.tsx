@@ -15,6 +15,12 @@ const exampleRecipe: Recipe = {
                     ingredientCategory: "flour",
                     formulaIngredientIds: ["fi0"],
                 },
+                "ing05": {
+                    id: "ing05",
+                    name: "whole wheat flour",
+                    ingredientCategory: "flour",
+                    formulaIngredientIds: ["fi05"],
+                },
                 "ing1": {
                     id: "ing1",
                     name: "water",
@@ -34,7 +40,7 @@ const exampleRecipe: Recipe = {
                     formulaIngredientIds: ["fi3"],
                 }
             },
-            allIds: ["ing1", "ing2", "ing3"],
+            allIds: ["ing0", "ing1", "ing05", "ing2", "ing3"],
         },
         formulaIngredients: {
             byId: {
@@ -42,7 +48,13 @@ const exampleRecipe: Recipe = {
                     id: "fi0",
                     ingredientId: "ing0",
                     formulaId: "overall",
-                    ratio: 1,
+                    ratio: .8,
+                },
+                fi05: {
+                    id: "fi05",
+                    ingredientId: "ing05",
+                    formulaId: "overall",
+                    ratio: .2,
                 },
                 fi1: {
                     id: "fi1",
@@ -63,14 +75,14 @@ const exampleRecipe: Recipe = {
                     ratio: .01
                 },
             },
-            allIds: ["fi0", "fi1", "fi2", "fi3"],
+            allIds: ["fi0", "fi05", "fi1", "fi2", "fi3"],
         },
         formulas: {
             byId: {
                 overall: {
                     id: "overall",
                     primaryFlourId: "fi0",
-                    formulaIngredientIds: ["fi0", "fi1", "fi2", "fi3"]
+                    formulaIngredientIds: ["fi0", "fi05", "fi1", "fi2", "fi3"]
                 }
             },
             allIds: ["overall"]

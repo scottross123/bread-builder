@@ -41,11 +41,12 @@ const FormulaTable = (props: FormulaTableProps) => {
 
     const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
         const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
-        const { name } = ingredients.byId[formulaIngredient.ingredientId];
+        const { name, ingredientCategory } = ingredients.byId[formulaIngredient.ingredientId];
         return {
             formulaIngredientId: formulaIngredientId,
             name: name,
             ratio: formulaIngredient.ratio,
+            isFlour: ingredientCategory === "flour",
         }
     });
 

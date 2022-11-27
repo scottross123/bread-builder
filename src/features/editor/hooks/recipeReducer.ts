@@ -1,16 +1,33 @@
-import { IngredientCategory, Recipe } from "@/types/recipe";
+import { FormulaIngredient, IngredientCategory, Recipe } from "@/types/recipe";
 import { getUniqueId } from "@/utils";
 
 type RecipeAction = 
-    | { type: "change-percent", payload: { formulaIngredientId: string, percent: number, totalFlourWeight?: number } }
-    | { type: "change-weight", payload: { formulaIngredientId: string, weight: number, totalFlourWeight: number } }
+    | { type: "change-percent",
+        payload: { 
+            formulaIngredientId: string, 
+            percent: number, 
+            totalFlourWeight?: number 
+        } }
+    | { type: "change-weight", 
+        payload: { 
+            formulaIngredientId: string, 
+            weight: number, 
+            totalFlourWeight: number, 
+            isFlour?: boolean 
+        } }
     | { type: "change-unit-weight", payload: number }
     | { type: "change-unit-qty", payload: number }
     | { type: "change-waste-factor", payload: number }
-    | { type: "add-ingredient", payload: { name: string, ratio: number, formulaId: "overall" | string, ingredientCategory: IngredientCategory } }
+    | { type: "add-ingredient", 
+        payload: { 
+            name: string, 
+            ratio: number, 
+            formulaId: "overall" | string, 
+            ingredientCategory: IngredientCategory 
+        } }
     | { type: "remove-ingredient", payload: string };
 
-const recipeReducer = (recipe: Recipe, action: RecipeAction) => {
+const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
     const { type, payload } = action;
 
     switch (type) {
@@ -56,14 +73,49 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction) => {
             const { 
                 formulaIngredientId, 
                 weight, 
-                totalFlourWeight 
+                totalFlourWeight,
+                isFlour, 
             } = payload;
             const formulaIngredientById = recipe.entities.formulaIngredients.byId[formulaIngredientId];
             const weightDifference = formulaIngredientById.ratio * totalFlourWeight - weight;
+            const newUnitWeight = recipe.unitWeight - (weightDifference / recipe.unitQuantity)
+
+            if (isFlour) {
+                console.log("is flour was called")
+                const newState = recipe.entities.formulaIngredients.allIds
+                    .reduce((previousState, id) => {
+                        const formulaIngredient: FormulaIngredient = recipe.entities.formulaIngredients.byId[id]; 
+                        console.log("weight", weightDifference)
+                        console.log("tfl - wd", (totalFlourWeight - weightDifference))
+                        return {
+                            ...previousState,
+                            [id]: {
+                                ...formulaIngredient,
+                                ratio: (formulaIngredient.ratio * totalFlourWeight) / (totalFlourWeight - weightDifference),
+                            }
+                        }
+                    }, {});
+
+                console.log(newState)
+
+                return {
+                    ...recipe,
+                    unitWeight: newUnitWeight,
+                    entities: {
+                        ...recipe.entities,
+                        formulaIngredients: {
+                            ...recipe.entities.formulaIngredients,
+                            byId: {
+                                ...newState
+                            }
+                        }
+                    } 
+                }
+            }
             
             return {               
                 ...recipe,
-                unitWeight: recipe.unitWeight - (weightDifference / recipe.unitQuantity),
+                unitWeight: newUnitWeight,
                 entities: {
                     ...recipe.entities,
                     formulaIngredients: {
