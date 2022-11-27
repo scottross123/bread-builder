@@ -82,7 +82,8 @@ const FormulaRow = (props: FormulaRowProps) => {
                     value={formatNumber(weight)} 
                     onChange={handleChange} 
                     readOnly={isPercentReadOnly} 
-                />g</td>
+                />g
+            </td>
         </tr>        
     );
 }
