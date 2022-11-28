@@ -1,5 +1,5 @@
 import { FormulaIngredient, IngredientCategory, Recipe } from "@/types/recipe";
-import { getUniqueId } from "@/utils";
+import { formatNumber, getUniqueId } from "@/utils";
 
 type RecipeAction = 
     | { type: "change-percent",
@@ -100,15 +100,19 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                 isFlour, 
             } = payload;
             const formulaIngredientById = recipe.entities.formulaIngredients.byId[formulaIngredientId];
-            const weightDifference = formulaIngredientById.ratio * totalFlourWeight - weight;
+            const weightDifference = (formulaIngredientById.ratio * totalFlourWeight - weight);
+            // console.table({weightDifference, weight, formulaIngredientById, totalFlourWeight,})
             const newUnitWeight = recipe.unitWeight - (weightDifference / recipe.unitQuantity)
+            const primaryFlourId = recipe.entities.formulas.byId[formulaIngredientById.formulaId].primaryFlourId;
 
             if (isFlour) {
                 const newRecipeState = recipe.entities.formulaIngredients.allIds
                     .reduce((previousState, id) => {
                         const formulaIngredient: FormulaIngredient = recipe.entities.formulaIngredients.byId[id]; 
-                        console.log("weight", weightDifference)
-                        console.log("tfl - wd", (totalFlourWeight - weightDifference))
+                        // if (recipe.entities.ingredients.byId[formulaIngredient.ingredientId].ingredientCategory === "flour") return {};
+                        if (formulaIngredient.id === formulaIngredientId) return {...previousState};
+                        console.log("firstt caalc", formulaIngredient.ratio, totalFlourWeight, formulaIngredient.ratio * totalFlourWeight);
+                        console.log("ssecond caalc, ", totalFlourWeight, weightDifference, (totalFlourWeight - weightDifference))
                         return {
                             ...previousState,
                             [id]: {
@@ -117,7 +121,10 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                             }
                         }
                     }, {});
-
+                
+                const ratioDifference = formulaIngredientById.ratio - (weight / (totalFlourWeight - weightDifference));
+                console.log("new flour weight", weight, totalFlourWeight - weightDifference, (weight / (totalFlourWeight - weightDifference)))
+                console.log("primary flour", recipe.entities.formulaIngredients.byId[primaryFlourId].ratio, ratioDifference, recipe.entities.formulaIngredients.byId[primaryFlourId].ratio + ratioDifference)
                 return {
                     ...recipe,
                     unitWeight: newUnitWeight,
@@ -126,7 +133,15 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                         formulaIngredients: {
                             ...recipe.entities.formulaIngredients,
                             byId: {
-                                ...newRecipeState
+                                ...newRecipeState,
+                                [primaryFlourId]: {
+                                    ...recipe.entities.formulaIngredients.byId[primaryFlourId],
+                                    ratio: recipe.entities.formulaIngredients.byId[primaryFlourId].ratio + ratioDifference,
+                                },
+                                [formulaIngredientId]: {
+                                    ...recipe.entities.formulaIngredients.byId[formulaIngredientId],
+                                    ratio: weight / (totalFlourWeight - weightDifference),
+                                }
                             }
                         }
                     } 

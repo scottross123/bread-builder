@@ -47,23 +47,9 @@ const FormulaRow = (props: FormulaRowProps) => {
         changeWeight,
     } = props;
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = parseFloat(event.target.value);
-
-        if (inputMode === "percent") {
-            if (!isDoughWeightLocked) 
-                changePercent(formulaIngredientId, value, selectTotalFlourWeight);
-            return changePercent(formulaIngredientId, value, undefined, primaryFlourId);
-        }
-        
-        if (inputMode === "weight") { 
-            return changeWeight(formulaIngredientId, value, selectTotalFlourWeight, isFlour);
-        }
-    }
-
-
     const percent = ratio * 100;
     const weight = ratio * selectTotalFlourWeight;
+    console.log("weight", ratio, selectTotalFlourWeight, weight)
     
     return (
         <tr>

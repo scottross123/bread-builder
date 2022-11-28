@@ -5,7 +5,7 @@ import { useRecipe } from "./hooks";
 const exampleRecipe: Recipe = {
     unitQuantity: 1,
     unitWeight: 1630,
-    wasteFactor: .0,
+    wasteFactor: .0, // TODO fix waste factor messing up calculation 
     entities: {
         ingredients: {
             byId: {

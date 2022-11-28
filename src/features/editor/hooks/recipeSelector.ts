@@ -1,4 +1,5 @@
 import { Recipe } from "@/types/recipe";
+import { formatNumber } from "@/utils";
 import { useMemo, useCallback } from "react";
 
 const recipeSelector = (recipe: Recipe) => {
@@ -11,12 +12,14 @@ const recipeSelector = (recipe: Recipe) => {
             .map((formulaIngredientId) =>
                 recipe.entities.formulaIngredients.byId[formulaIngredientId]
             )
-            .reduce((ratioSum, { ratio }) =>
-                ratioSum + ratio, 0
+            .reduce((ratioSum, { ratio }) => {
+                // console.log("ratuo", ratio)
+                return ratioSum + ratio}, 0
             );
     }, [recipe.entities.formulaIngredients]);
 
     const selectTotalFlourWeight = useMemo(() => {
+        // console.log("select total flour weight", selectTotalDoughWeight, selectTotalRatio("overall"))
         return selectTotalDoughWeight / selectTotalRatio("overall");
     }, [selectTotalDoughWeight, selectTotalRatio]);
 
