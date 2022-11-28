@@ -17,7 +17,8 @@ const useRecipe = (initialRecipe: Recipe) => {
     const changePercent = (
         formulaIngredientId: string, 
         percent: number, 
-        totalFlourWeight?: number
+        totalFlourWeight?: number,
+        primaryFlourId?: string,
     ) => {
         dispatch({
             type: "change-percent",
@@ -25,6 +26,7 @@ const useRecipe = (initialRecipe: Recipe) => {
                 formulaIngredientId: formulaIngredientId,
                 percent: percent,
                 totalFlourWeight: totalFlourWeight,
+                primaryFlourId: primaryFlourId,
             },
         });
     }

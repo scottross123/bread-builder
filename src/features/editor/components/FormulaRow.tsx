@@ -11,6 +11,7 @@ export type FormulaRowProps = {
         ratio: number, 
         isFlour: boolean 
     }, 
+    primaryFlourId?: string,
     selectTotalFlourWeight: number,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
@@ -18,6 +19,7 @@ export type FormulaRowProps = {
         formulaIngredientId: string, 
         percent: number, 
         totalFlourWeight?: number,
+        primaryFlourId?: string,
     ) => void,
     changeWeight: (
         formulaIngredientId: string, 
@@ -35,6 +37,7 @@ const FormulaRow = (props: FormulaRowProps) => {
             ratio,
             isFlour,
         },
+        primaryFlourId,
         selectTotalFlourWeight, 
         inputMode, 
         isDoughWeightLocked,
@@ -42,15 +45,13 @@ const FormulaRow = (props: FormulaRowProps) => {
         changeWeight,
     } = props;
 
-    //console.log({name: name, isFlour: isFlour})
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(event.target.value);
 
         if (inputMode === "percent") {
             if (!isDoughWeightLocked) 
-                return changePercent(formulaIngredientId, value, selectTotalFlourWeight);
-            return changePercent(formulaIngredientId, value);
+                changePercent(formulaIngredientId, value, selectTotalFlourWeight);
+            return changePercent(formulaIngredientId, value, undefined, primaryFlourId);
         }
         
         if (inputMode === "weight") { 

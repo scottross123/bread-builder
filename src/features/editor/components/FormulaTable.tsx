@@ -91,6 +91,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                             <FormulaRow
                                 key={ingredient.formulaIngredientId}
                                 ingredient={ingredient}
+                                primaryFlourId={ingredient.isFlour ? formula.primaryFlourId : undefined}
                                 selectTotalFlourWeight={selectTotalFlourWeight} 
                                 inputMode={inputMode}
                                 isDoughWeightLocked={isDoughWeightLocked}

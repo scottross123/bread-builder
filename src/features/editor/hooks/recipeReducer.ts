@@ -6,7 +6,8 @@ type RecipeAction =
         payload: { 
             formulaIngredientId: string, 
             percent: number, 
-            totalFlourWeight?: number 
+            totalFlourWeight?: number,
+            primaryFlourId?: string,
         } }
     | { type: "change-weight", 
         payload: { 
@@ -35,12 +36,13 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
             const { 
                 formulaIngredientId, 
                 percent, 
-                totalFlourWeight 
+                totalFlourWeight,
+                primaryFlourId, 
             } = payload;
             const formulaIngredientById = recipe.entities.formulaIngredients.byId[formulaIngredientId];
             const newRatio = percent / 100;
 
-            const newState =  {               
+            const newRecipeState =  {               
                 ...recipe,
                 entities: {
                     ...recipe.entities,
@@ -55,18 +57,39 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                         }
                     } 
                 }
+            };
+
+            if (primaryFlourId) {
+                const primaryFlour = newRecipeState.entities.formulaIngredients.byId[primaryFlourId];
+                const ratioDifference = formulaIngredientById.ratio - newRatio;
+                return {
+                    ...newRecipeState,
+                    entities: {
+                        ...newRecipeState.entities,
+                        formulaIngredients: {
+                            ...newRecipeState.entities.formulaIngredients,
+                            byId: {
+                                ...newRecipeState.entities.formulaIngredients.byId,
+                                [primaryFlourId]: {
+                                    ...primaryFlour,
+                                    ratio: primaryFlour.ratio + ratioDifference,
+                                }
+                            }
+                        }
+                    }
+                };
             }
 
             if (totalFlourWeight) {
                 const weight = percent * totalFlourWeight / 100;
                 const weightDifference = formulaIngredientById.ratio * totalFlourWeight - weight;
                 return {
-                    ...newState,
+                    ...newRecipeState,
                     unitWeight: recipe.unitWeight - (weightDifference / recipe.unitQuantity),
-                }
+                };
             }
 
-            return { ...newState }
+            return { ...newRecipeState };
         } 
 
         case "change-weight": {
@@ -81,8 +104,7 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
             const newUnitWeight = recipe.unitWeight - (weightDifference / recipe.unitQuantity)
 
             if (isFlour) {
-                console.log("is flour was called")
-                const newState = recipe.entities.formulaIngredients.allIds
+                const newRecipeState = recipe.entities.formulaIngredients.allIds
                     .reduce((previousState, id) => {
                         const formulaIngredient: FormulaIngredient = recipe.entities.formulaIngredients.byId[id]; 
                         console.log("weight", weightDifference)
@@ -96,8 +118,6 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                         }
                     }, {});
 
-                console.log(newState)
-
                 return {
                     ...recipe,
                     unitWeight: newUnitWeight,
@@ -106,7 +126,7 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                         formulaIngredients: {
                             ...recipe.entities.formulaIngredients,
                             byId: {
-                                ...newState
+                                ...newRecipeState
                             }
                         }
                     } 
