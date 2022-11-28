@@ -1,8 +1,9 @@
 import { ChangeEvent } from "react";
 import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
+import FormulaPercent from "./FormulaPercent";
 
-const innerCellStyling = "w-20 inline-block";
+
 
 export type FormulaRowProps = {
     ingredient: { 
@@ -67,18 +68,16 @@ const FormulaRow = (props: FormulaRowProps) => {
     return (
         <tr>
             <td>{name}</td>
+            <FormulaPercent
+                formulaIngredientId={formulaIngredientId}
+                percent={percent}
+                selectTotalFlourWeight={isDoughWeightLocked ? undefined : selectTotalFlourWeight}
+                primaryFlourId={isFlour ? primaryFlourId : undefined}
+                inputMode={inputMode}
+                changePercent={changePercent}
+            />
             <td>
                 <input 
-                    className={innerCellStyling} 
-                    type="number" 
-                    value={formatNumber(percent)} 
-                    onChange={handleChange} 
-                    readOnly={!isPercentReadOnly} 
-                />%
-            </td>
-            <td>
-                <input 
-                    className={innerCellStyling} 
                     type="number" 
                     value={formatNumber(weight)} 
                     onChange={handleChange} 
