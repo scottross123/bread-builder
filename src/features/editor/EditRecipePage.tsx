@@ -3,9 +3,9 @@ import { Recipe } from "@/types/recipe";
 import { useRecipe } from "./hooks";
 
 const exampleRecipe: Recipe = {
-    unitQuantity: 3,
-    unitWeight: 950,
-    wasteFactor: .03,
+    unitQuantity: 1,
+    unitWeight: 1630,
+    wasteFactor: .0,
     entities: {
         ingredients: {
             byId: {

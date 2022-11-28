@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import FormulaPercent from "./FormulaPercent";
+import FormulaWeight from "./FormulaWeight";
 
 
 
@@ -63,7 +64,6 @@ const FormulaRow = (props: FormulaRowProps) => {
 
     const percent = ratio * 100;
     const weight = ratio * selectTotalFlourWeight;
-    const isPercentReadOnly = inputMode === "percent";
     
     return (
         <tr>
@@ -76,14 +76,14 @@ const FormulaRow = (props: FormulaRowProps) => {
                 inputMode={inputMode}
                 changePercent={changePercent}
             />
-            <td>
-                <input 
-                    type="number" 
-                    value={formatNumber(weight)} 
-                    onChange={handleChange} 
-                    readOnly={isPercentReadOnly} 
-                />g
-            </td>
+            <FormulaWeight
+                formulaIngredientId={formulaIngredientId}
+                weight={weight}
+                selectTotalFlourWeight={selectTotalFlourWeight}
+                isFlour={isFlour}
+                inputMode={inputMode}
+                changeWeight={changeWeight}
+            />
         </tr>        
     );
 }

@@ -133,6 +133,8 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                 }
             }
             
+            console.log(totalFlourWeight)
+
             return {               
                 ...recipe,
                 unitWeight: newUnitWeight,
