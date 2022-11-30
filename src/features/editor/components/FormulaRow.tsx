@@ -1,23 +1,33 @@
 import { ChangeEvent } from "react";
 import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
+import FormulaPercent from "./FormulaPercent";
+import FormulaWeight from "./FormulaWeight";
 
-const innerCellStyling = "w-20 inline-block";
+
 
 export type FormulaRowProps = {
-    ingredient: { formulaIngredientId: string, name: string, ratio: number }, 
+    ingredient: { 
+        formulaIngredientId: string, 
+        name: string, 
+        ratio: number, 
+        isFlour: boolean 
+    }, 
+    primaryFlourId?: string,
     selectTotalFlourWeight: number,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
     changePercent:  (
         formulaIngredientId: string, 
         percent: number, 
-        totalFlourWeight?: number
+        totalFlourWeight?: number,
+        primaryFlourId?: string,
     ) => void,
     changeWeight: (
         formulaIngredientId: string, 
         weight: number, 
-        totalFlourWeight: number
+        totalFlourWeight: number,
+        isFlour? : boolean,
     ) => void,
 }
 
@@ -26,8 +36,10 @@ const FormulaRow = (props: FormulaRowProps) => {
         ingredient: {
             formulaIngredientId,
             name,
-            ratio
+            ratio,
+            isFlour,
         },
+        primaryFlourId,
         selectTotalFlourWeight, 
         inputMode, 
         isDoughWeightLocked,
@@ -35,45 +47,29 @@ const FormulaRow = (props: FormulaRowProps) => {
         changeWeight,
     } = props;
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = parseFloat(event.target.value);
-
-        if (inputMode === "percent") {
-            if (!isDoughWeightLocked) 
-                return changePercent(formulaIngredientId, value, selectTotalFlourWeight);
-            return changePercent(formulaIngredientId, value);
-        }
-        
-        if (inputMode === "weight") { 
-            return changeWeight(formulaIngredientId, value, selectTotalFlourWeight);
-        }
-    }
-
-
     const percent = ratio * 100;
     const weight = ratio * selectTotalFlourWeight;
-    const isPercentReadOnly = inputMode === "percent";
+    console.log("weight", ratio, selectTotalFlourWeight, weight)
     
     return (
         <tr>
             <td>{name}</td>
-            <td>
-                <input 
-                    className={innerCellStyling} 
-                    type="number" 
-                    value={formatNumber(percent)} 
-                    onChange={handleChange} 
-                    readOnly={!isPercentReadOnly} 
-                />%
-            </td>
-            <td>
-                <input 
-                    className={innerCellStyling} 
-                    type="number" 
-                    value={formatNumber(weight)} 
-                    onChange={handleChange} 
-                    readOnly={isPercentReadOnly} 
-                />g</td>
+            <FormulaPercent
+                formulaIngredientId={formulaIngredientId}
+                percent={percent}
+                selectTotalFlourWeight={isDoughWeightLocked ? undefined : selectTotalFlourWeight}
+                primaryFlourId={isFlour ? primaryFlourId : undefined}
+                inputMode={inputMode}
+                changePercent={changePercent}
+            />
+            <FormulaWeight
+                formulaIngredientId={formulaIngredientId}
+                weight={weight}
+                selectTotalFlourWeight={selectTotalFlourWeight}
+                isFlour={isFlour}
+                inputMode={inputMode}
+                changeWeight={changeWeight}
+            />
         </tr>        
     );
 }

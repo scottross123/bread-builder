@@ -37,15 +37,16 @@ const FormulaTable = (props: FormulaTableProps) => {
         selectTotalRatio,
         selectTotalDoughWeight
     } = props;
-    const innerCellStyling = "w-16 inline-block";
+    const innerCellStyling = "w-20 inline-block";
 
     const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
         const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
-        const { name } = ingredients.byId[formulaIngredient.ingredientId];
+        const { name, ingredientCategory } = ingredients.byId[formulaIngredient.ingredientId];
         return {
             formulaIngredientId: formulaIngredientId,
             name: name,
             ratio: formulaIngredient.ratio,
+            isFlour: ingredientCategory === "flour",
         }
     });
 
@@ -64,11 +65,34 @@ const FormulaTable = (props: FormulaTableProps) => {
             <tbody>
                 {
                     formulaIngredientsList.map((ingredient) => {
+                        if (ingredient.formulaIngredientId === formula.primaryFlourId) {
+                            return (
+                                <tr key={ingredient.formulaIngredientId}>
+                                    <td>{ingredient.name}</td>
+                                    <td>
+                                        <input 
+                                            className={innerCellStyling}
+                                            type="number"
+                                            value={formatNumber(ingredient.ratio * 100)}
+                                            readOnly
+                                        />%
+                                    </td>
+                                    <td><input
+                                        className={innerCellStyling}
+                                        type="number"
+                                        value={formatNumber(ingredient.ratio * selectTotalFlourWeight)}
+                                        readOnly 
+                                        />g
+                                    </td>
+                                </tr>
+                            ) 
+                        }
                         return (
                             <FormulaRow
                                 key={ingredient.formulaIngredientId}
                                 ingredient={ingredient}
-                                selectTotalFlourWeight={selectTotalFlourWeight}
+                                primaryFlourId={ingredient.isFlour ? formula.primaryFlourId : undefined}
+                                selectTotalFlourWeight={selectTotalFlourWeight} 
                                 inputMode={inputMode}
                                 isDoughWeightLocked={isDoughWeightLocked}
                                 changePercent={changePercent}
