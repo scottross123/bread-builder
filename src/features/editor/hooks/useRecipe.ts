@@ -24,7 +24,7 @@ const useRecipe = (initialRecipe: Recipe) => {
             type: "change-percent",
             payload: {
                 formulaIngredientId: formulaIngredientId,
-                percent: percent,
+                percent: isNaN(percent) ? 0 : percent,
                 totalFlourWeight: totalFlourWeight,
                 primaryFlourId: primaryFlourId,
             },
@@ -41,7 +41,7 @@ const useRecipe = (initialRecipe: Recipe) => {
             type: "change-weight",
             payload: {
                 formulaIngredientId: formulaIngredientId,
-                weight: weight,
+                weight: isNaN(weight) ? 0 : weight,
                 totalFlourWeight: totalFlourWeight,
                 isFlour: isFlour,
             },
@@ -51,21 +51,21 @@ const useRecipe = (initialRecipe: Recipe) => {
     const changeUnitWeight = (newUnitWeight: number) => {
         dispatch({
             type: "change-unit-weight",
-            payload: newUnitWeight,
+            payload: isNaN(newUnitWeight) ? 0 : newUnitWeight,
         });
     }
 
     const changeUnitQuantity = (newUnitQuantity: number) => {
         dispatch({
             type: "change-unit-qty",
-            payload: newUnitQuantity,
+            payload: isNaN(newUnitQuantity) ? 0 : newUnitQuantity,
         });
     }
 
     const changeWasteFactor = (newWasteFactor: number) => {
         dispatch({
             type: "change-waste-factor",
-            payload: newWasteFactor,
+            payload: newWasteFactor, // broke
         });
     }
     
