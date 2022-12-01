@@ -1,6 +1,7 @@
-import BreadRecipe from "./components";
+import BreadRecipe from "../components";
 import { Recipe } from "@/types/recipe";
-import { useRecipe } from "./hooks";
+import { useRecipe } from "../hooks";
+import EditorLayout from "../components/EditorLayout";
 
 const exampleRecipe: Recipe = {
     unitQuantity: 1,
@@ -105,7 +106,7 @@ const EditRecipePage = () => {
     } = useRecipe(exampleRecipe);
 
     return (
-        <div>
+        <EditorLayout>
             <BreadRecipe 
                 recipe={recipe}
                 changePercent={changePercent}
@@ -117,7 +118,7 @@ const EditRecipePage = () => {
                 selectTotalRatio={selectTotalRatio}
                 selectTotalDoughWeight={selectTotalDoughWeight}
             />
-        </div>
+        </EditorLayout>
     );
 };
 

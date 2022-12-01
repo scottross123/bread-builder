@@ -3,6 +3,7 @@ import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import FormulaPercent from "./FormulaPercent";
 import FormulaWeight from "./FormulaWeight";
+import Cell from "./Cell";
 
 
 
@@ -53,7 +54,7 @@ const FormulaRow = (props: FormulaRowProps) => {
     
     return (
         <tr>
-            <td>{name}</td>
+            <Cell>{name}</Cell>
             <FormulaPercent
                 formulaIngredientId={formulaIngredientId}
                 percent={percent}

@@ -9,6 +9,7 @@ import {
     Table 
 } from "@/types/recipe";
 import { formatNumber } from "@/utils";
+import Cell from "./Cell";
 import FormulaRow from "./FormulaRow";
 
 type FormulaTableProps = {
@@ -51,15 +52,15 @@ const FormulaTable = (props: FormulaTableProps) => {
     });
 
     return (
-        <table className="border-collapse border">
+        <table className="border-collapse border text-left">
             <thead>
                 <tr>
-                    <th colSpan={3}>Overall Formula</th>
+                    <Cell heading colSpan={3}>Overall Formula</Cell>
                 </tr>
                 <tr>
-                    <th>Ingredients</th>
-                    <th>%</th>
-                    <th>grams</th>
+                    <Cell heading>Ingredients</Cell>
+                    <Cell heading>Baker&apos;s %</Cell>
+                    <Cell heading>grams</Cell>
                 </tr>
             </thead>
             <tbody>
@@ -68,22 +69,22 @@ const FormulaTable = (props: FormulaTableProps) => {
                         if (ingredient.formulaIngredientId === formula.primaryFlourId) {
                             return (
                                 <tr key={ingredient.formulaIngredientId}>
-                                    <td>{ingredient.name}</td>
-                                    <td>
+                                    <Cell>{ingredient.name}</Cell>
+                                    <Cell unit="%">
                                         <input 
                                             className={innerCellStyling}
                                             type="number"
                                             value={formatNumber(ingredient.ratio * 100)}
                                             readOnly
-                                        />%
-                                    </td>
-                                    <td><input
+                                        />
+                                    </Cell>
+                                    <Cell unit="g"><input
                                         className={innerCellStyling}
                                         type="number"
                                         value={formatNumber(ingredient.ratio * selectTotalFlourWeight)}
                                         readOnly 
-                                        />g
-                                    </td>
+                                        />
+                                    </Cell>
                                 </tr>
                             ) 
                         }
@@ -104,9 +105,9 @@ const FormulaTable = (props: FormulaTableProps) => {
             </tbody>
             <tfoot className="text-left">
                 <tr>
-                    <th>Totals</th>
-                    <th><p className={innerCellStyling}>{formatNumber(selectTotalRatio(formula.id) * 100)}</p>%</th>
-                    <th>{formatNumber(selectTotalDoughWeight)}g</th>
+                    <Cell heading>Totals</Cell>
+                    <Cell heading unit="%"><p className={innerCellStyling}>{formatNumber(selectTotalRatio(formula.id) * 100)}</p></Cell>
+                    <Cell heading unit="g">{formatNumber(selectTotalDoughWeight).toString()}</Cell>
                 </tr>
             </tfoot>
         </table>

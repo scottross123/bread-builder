@@ -60,7 +60,7 @@ const DoughWeightControls = (props: DoughWeightControlsProps) => {
                     onChange={(event) => handleChange("unit-qty", event)}
                 />
             </label>
-            <label htmlFor="waste-factor">
+            {/* <label htmlFor="waste-factor">
                 Waste Factor
                 <input 
                     id="waste-factor" 
@@ -68,7 +68,7 @@ const DoughWeightControls = (props: DoughWeightControlsProps) => {
                     value={formatNumber(wasteFactor * 100)} 
                     onChange={(event) => handleChange("waste-factor", event)}
                 />
-            </label>
+            </label> */}
         </div>
     );
 }

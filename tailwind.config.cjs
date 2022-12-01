@@ -2,7 +2,17 @@
 module.exports = {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            gridTemplateRows: {
+                "app": "auto 1fr"
+            },
+            gridTemplateColumns: {
+                "app": "minmax(150px, 20%) 1fr"
+            },
+            colors: {
+                "base": "#212121"
+            }
+        },
     },
     plugins: [],
 };

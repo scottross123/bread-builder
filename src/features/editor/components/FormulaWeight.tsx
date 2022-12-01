@@ -1,6 +1,7 @@
 import { InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import { ChangeEvent } from "react";
+import Cell from "./Cell";
 
 const innerCellStyling = "w-20 inline-block";
 
@@ -34,15 +35,15 @@ const FormulaWeight = (props: FormulaWeightProps) => {
     }
 
     return (
-        <td>
+        <Cell unit="g">
             <input 
                 className={innerCellStyling} 
                 type="number" 
                 value={formatNumber(weight)} 
                 onChange={handleChange} 
                 readOnly={inputMode === "percent"} 
-            />g
-        </td>
+            />
+        </Cell>
     );
 }
 

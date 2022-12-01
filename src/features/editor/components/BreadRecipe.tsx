@@ -55,6 +55,7 @@ const BreadRecipe = (props: BreadRecipeProps) => {
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalRatio={selectTotalRatio}
             />
+            
             <DoughWeightControls 
                 unitWeight={unitWeight}
                 unitQuantity={unitQuantity}
