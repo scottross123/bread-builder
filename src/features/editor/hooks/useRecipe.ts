@@ -8,9 +8,10 @@ const useRecipe = (initialRecipe: Recipe) => {
     const [recipe, dispatch] = useReducer(recipeReducer, initialRecipe);
 
     const { 
-        selectTotalFlourWeight, 
-        selectTotalRatio, 
+        selectFormulaTotalFlourWeight, 
+        selectFormulaTotalRatio, 
         selectTotalDoughWeight,
+        selectPreFermentWeight,
     } = recipeSelector(recipe);
 
 
@@ -72,8 +73,9 @@ const useRecipe = (initialRecipe: Recipe) => {
     return { 
         recipe, 
         selectTotalDoughWeight,
-        selectTotalFlourWeight,
-        selectTotalRatio,
+        selectFormulaTotalFlourWeight,
+        selectFormulaTotalRatio,
+        selectPreFermentWeight,
         changePercent, 
         changeWeight, 
         changeUnitWeight,

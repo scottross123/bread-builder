@@ -1,4 +1,4 @@
-import { Recipe } from "@/types/Recipe";
+import { Preferment, Recipe } from "@/types/Recipe";
 import { formatNumber } from "@/utils";
 import { useMemo, useCallback } from "react";
 
@@ -7,7 +7,7 @@ const recipeSelector = (recipe: Recipe) => {
         return recipe.unitQuantity * recipe.unitWeight * (recipe.wasteFactor + 1);
     }, [recipe.unitQuantity, recipe.unitWeight, recipe.wasteFactor]);
 
-    const selectTotalRatio = useCallback((formulaId: string) => {
+    const selectFormulaTotalRatio = useCallback((formulaId: string): number => {
          return recipe.entities.formulas.byId[formulaId].formulaIngredientIds
             .map((formulaIngredientId) =>
                 recipe.entities.formulaIngredients.byId[formulaIngredientId]
@@ -18,15 +18,26 @@ const recipeSelector = (recipe: Recipe) => {
             );
     }, [recipe.entities.formulaIngredients]);
 
-    const selectTotalFlourWeight = useCallback((formulaId: string) => {
-        // console.log("select total flour weight", selectTotalDoughWeight, selectTotalRatio("overall"))
-        return selectTotalDoughWeight / selectTotalRatio(formulaId);
-    }, [selectTotalDoughWeight, selectTotalRatio]);
+    const selectFormulaTotalFlourWeight = useCallback((formulaId: string): number => {
+        // console.log("select total flour weight", selectTotalDoughWeight, selectFormulaTotalRatio("overall"))
+        if (formulaId === "overall") return selectTotalDoughWeight / selectFormulaTotalRatio(formulaId);
+        return (recipe.entities.formulas.byId[formulaId] as Preferment).preFermentedFlour * selectFormulaTotalFlourWeight("overall");
+    }, [selectTotalDoughWeight, selectFormulaTotalRatio]);
+
+    const selectPreFermentWeight = useCallback((formulaId: string): number => {
+        const flourWeight = selectFormulaTotalFlourWeight(formulaId);
+        return recipe.entities.formulas.byId[formulaId].formulaIngredientIds
+            .reduce((weightSum, formulaIngredientId) => {
+                const formulaIngredient = recipe.entities.formulaIngredients.byId[formulaIngredientId]
+                return weightSum + formulaIngredient.ratio * flourWeight
+            }, 0);
+    }, [recipe.entities])
 
     return {
         selectTotalDoughWeight,
-        selectTotalRatio,
-        selectTotalFlourWeight,
+        selectFormulaTotalRatio,
+        selectFormulaTotalFlourWeight,
+        selectPreFermentWeight,
     }
 }
 

@@ -35,7 +35,7 @@ const FormulaRow = (props: FormulaRowProps) => {
             <FormulaPercent
                 formulaIngredientId={formulaIngredient.id}
                 percent={percent}
-                selectTotalFlourWeight={isDoughWeightLocked ? undefined : totalFlourWeight}
+                selectFormulaTotalFlourWeight={isDoughWeightLocked ? undefined : totalFlourWeight}
                 primaryFlourId={isFlour ? primaryFlourId : undefined}
                 inputMode={inputMode}
                 changePercent={changePercent}
@@ -43,7 +43,7 @@ const FormulaRow = (props: FormulaRowProps) => {
             <FormulaWeight
                 formulaIngredientId={formulaIngredient.id}
                 weight={weight}
-                selectTotalFlourWeight={totalFlourWeight}
+                selectFormulaTotalFlourWeight={totalFlourWeight}
                 isFlour={isFlour}
                 inputMode={inputMode}
                 changeWeight={changeWeight}

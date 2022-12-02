@@ -16,7 +16,8 @@ export type FormulaTableProps =  {
     ingredients: Table<Ingredient>,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
-} & Omit<BreadFormulaProps, "recipe" | "changeUnitQuantity" | "changeUnitWeight" | "changeWasteFactor">;
+    totalWeight: number,
+} & Pick<BreadFormulaProps, "changePercent" | "changeWeight" | "selectFormulaTotalFlourWeight" | "selectFormulaTotalRatio">;
 
 const FormulaTable = (props: FormulaTableProps) => {
     const { 
@@ -27,9 +28,9 @@ const FormulaTable = (props: FormulaTableProps) => {
         isDoughWeightLocked,
         changePercent,
         changeWeight,
-        selectTotalFlourWeight,
-        selectTotalRatio,
-        selectTotalDoughWeight
+        selectFormulaTotalFlourWeight,
+        selectFormulaTotalRatio,
+        totalWeight,
     } = props;
     const innerCellStyling = "w-20 inline-block";
 
@@ -89,7 +90,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                                     <Cell unit="g"><input
                                         className={innerCellStyling}
                                         type="number"
-                                        value={formatNumber(formulaIngredient.ratio * selectTotalFlourWeight(formula.id))}
+                                        value={formatNumber(formulaIngredient.ratio * selectFormulaTotalFlourWeight(formula.id))}
                                         readOnly 
                                         />
                                     </Cell>
@@ -102,7 +103,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                                 formulaIngredient={formulaIngredient}
                                 primaryFlourId={formula.primaryFlourId}
                                 isFlour={ingredient.ingredientCategory === "flour"}
-                                totalFlourWeight={selectTotalFlourWeight(formula.id)} 
+                                totalFlourWeight={selectFormulaTotalFlourWeight(formula.id)} 
                                 inputMode={inputMode}
                                 isDoughWeightLocked={isDoughWeightLocked}
                                 changePercent={changePercent}
@@ -114,8 +115,8 @@ const FormulaTable = (props: FormulaTableProps) => {
             </tbody>
             <tfoot className="text-left">
                 <tr>
-                    <Cell heading unit="%"><p className={innerCellStyling}>{formatNumber(selectTotalRatio(formula.id) * 100)}</p></Cell>
-                    <Cell heading unit="g">{formatNumber(selectTotalDoughWeight).toString()}</Cell>
+                    <Cell heading unit="%"><p className={innerCellStyling}>{formatNumber(selectFormulaTotalRatio(formula.id) * 100)}</p></Cell>
+                    <Cell heading unit="g">{formatNumber(totalWeight).toString()}</Cell>
                 </tr>
             </tfoot>
         </table>

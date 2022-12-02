@@ -15,8 +15,9 @@ export type BreadFormulaProps = {
     changeUnitQuantity: (newUnitQuantity: number) => void,
     changeWasteFactor: (newWasteFactor: number) => void,
     selectTotalDoughWeight: number,
-    selectTotalFlourWeight: (formulaId: string) => number,
-    selectTotalRatio: (formulaId: string) => number,
+    selectFormulaTotalFlourWeight: (formulaId: string) => number,
+    selectFormulaTotalRatio: (formulaId: string) => number,
+    selectPreFermentWeight: (formulaId: string) => number,
 }
 
 const BreadFormula = (props: BreadFormulaProps) => {
@@ -37,8 +38,9 @@ const BreadFormula = (props: BreadFormulaProps) => {
         changeUnitQuantity,
         changeWasteFactor,
         selectTotalDoughWeight,
-        selectTotalFlourWeight,
-        selectTotalRatio,
+        selectPreFermentWeight,
+        selectFormulaTotalFlourWeight,
+        selectFormulaTotalRatio,
     } = props;
     const [inputMode, setInputMode] = useState<InputMode>("percent");
     const [isDoughWeightLocked, setIsDoughWeightLocked] = useState(true);
@@ -63,11 +65,11 @@ const BreadFormula = (props: BreadFormulaProps) => {
                                     ingredients={ingredients}
                                     inputMode={inputMode} 
                                     isDoughWeightLocked={isDoughWeightLocked}
-                                    selectTotalDoughWeight={selectTotalDoughWeight}
+                                    totalWeight={formula.id === "overall" ? selectTotalDoughWeight : selectPreFermentWeight(formula.id)}
                                     changePercent={changePercent}
                                     changeWeight={changeWeight}
-                                    selectTotalFlourWeight={selectTotalFlourWeight}
-                                    selectTotalRatio={selectTotalRatio}
+                                    selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
+                                    selectFormulaTotalRatio={selectFormulaTotalRatio}
                                 />
                             </td>
                         )

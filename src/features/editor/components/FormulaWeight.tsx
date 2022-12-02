@@ -8,7 +8,7 @@ const innerCellStyling = "w-20 inline-block";
 type FormulaWeightProps = {
     formulaIngredientId: string,
     weight: number,
-    selectTotalFlourWeight: number,
+    selectFormulaTotalFlourWeight: number,
     isFlour?: boolean,
     inputMode: InputMode,
     changeWeight: (
@@ -23,7 +23,7 @@ const FormulaWeight = (props: FormulaWeightProps) => {
     const {
         formulaIngredientId,
         weight,
-        selectTotalFlourWeight,
+        selectFormulaTotalFlourWeight,
         isFlour,
         inputMode,
         changeWeight
@@ -31,7 +31,7 @@ const FormulaWeight = (props: FormulaWeightProps) => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(event.target.value);
-        changeWeight(formulaIngredientId, value, selectTotalFlourWeight, isFlour);
+        changeWeight(formulaIngredientId, value, selectFormulaTotalFlourWeight, isFlour);
     }
 
     return (

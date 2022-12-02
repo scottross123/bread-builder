@@ -107,6 +107,7 @@ const exampleRecipe: Recipe = {
                 pf1: {
                     id: "pf1",
                     name: "Poolish",
+                    preFermentedFlour: .15,
                     primaryFlourId: "fi4",
                     formulaIngredientIds: ["fi4", "fi5", "fi6"],
                 }
@@ -121,8 +122,9 @@ const EditRecipePage = () => {
     const { 
         recipe, 
         selectTotalDoughWeight,
-        selectTotalFlourWeight,
-        selectTotalRatio,
+        selectFormulaTotalFlourWeight,
+        selectFormulaTotalRatio,
+        selectPreFermentWeight,
         changePercent, 
         changeWeight,
         changeUnitQuantity,
@@ -139,9 +141,10 @@ const EditRecipePage = () => {
                 changeUnitQuantity={changeUnitQuantity}
                 changeUnitWeight={changeUnitWeight}
                 changeWasteFactor={changeWasteFactor}
-                selectTotalFlourWeight={selectTotalFlourWeight}
-                selectTotalRatio={selectTotalRatio}
+                selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
+                selectFormulaTotalRatio={selectFormulaTotalRatio}
                 selectTotalDoughWeight={selectTotalDoughWeight}
+                selectPreFermentWeight={selectPreFermentWeight}
             />
         </EditorLayout>
     );

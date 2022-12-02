@@ -1,4 +1,4 @@
-import { InputMode } from "@/types/Recipe";
+import { InputMode } from "@/types";
 import { formatNumber } from "@/utils";
 import { ChangeEvent } from "react";
 import Cell from "./Cell";
@@ -8,7 +8,7 @@ const innerCellStyling = "w-20 inline-block";
 type FormulaPercentProps = {
     formulaIngredientId: string,
     percent: number,
-    selectTotalFlourWeight?: number,
+    selectFormulaTotalFlourWeight?: number,
     primaryFlourId?: string,
     inputMode: InputMode,
     changePercent:  (
@@ -23,7 +23,7 @@ const FormulaPercent = (props: FormulaPercentProps) => {
     const {
         formulaIngredientId,
         percent,
-        selectTotalFlourWeight,
+        selectFormulaTotalFlourWeight,
         primaryFlourId,
         inputMode,
         changePercent,
@@ -31,7 +31,7 @@ const FormulaPercent = (props: FormulaPercentProps) => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(event.target.value);
-        changePercent(formulaIngredientId, value, selectTotalFlourWeight, primaryFlourId);
+        changePercent(formulaIngredientId, value, selectFormulaTotalFlourWeight, primaryFlourId);
     }
 
     return (
