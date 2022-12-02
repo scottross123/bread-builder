@@ -58,7 +58,6 @@ const FormulaTable = (props: FormulaTableProps) => {
                     <Cell heading colSpan={3}>Overall Formula</Cell>
                 </tr>
                 <tr>
-                    <Cell heading>Ingredients</Cell>
                     <Cell heading>Baker&apos;s %</Cell>
                     <Cell heading>grams</Cell>
                 </tr>
@@ -69,7 +68,6 @@ const FormulaTable = (props: FormulaTableProps) => {
                         if (ingredient.formulaIngredientId === formula.primaryFlourId) {
                             return (
                                 <tr key={ingredient.formulaIngredientId}>
-                                    <Cell>{ingredient.name}</Cell>
                                     <Cell unit="%">
                                         <input 
                                             className={innerCellStyling}
@@ -105,7 +103,6 @@ const FormulaTable = (props: FormulaTableProps) => {
             </tbody>
             <tfoot className="text-left">
                 <tr>
-                    <Cell heading>Totals</Cell>
                     <Cell heading unit="%"><p className={innerCellStyling}>{formatNumber(selectTotalRatio(formula.id) * 100)}</p></Cell>
                     <Cell heading unit="g">{formatNumber(selectTotalDoughWeight).toString()}</Cell>
                 </tr>

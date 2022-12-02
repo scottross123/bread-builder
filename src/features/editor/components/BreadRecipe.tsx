@@ -5,6 +5,7 @@ import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
 import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
+import { tableToList } from "@/utils/tableToList";
 
 type BreadRecipeProps = {
     recipe: Recipe,
@@ -42,30 +43,36 @@ const BreadRecipe = (props: BreadRecipeProps) => {
     const [inputMode, setInputMode] = useState<InputMode>("percent");
     const [isDoughWeightLocked, setIsDoughWeightLocked] = useState(true);
 
+    const formulasList = tableToList(formulas);
+
     return (
         <div data-testid="bread-formula" className="">
-            <table className="border-collapse">
+            <table className="border-collapse border m-auto">
                 <tr>
                     <td>
-            <Ingredients
-                ingredients={ingredients}
-            />
-                </td>
-                <td>
-            <FormulaTable 
-                formula={formulas.byId["overall"] as OverallFormula}
-                formulaIngredients={formulaIngredients}
-                ingredients={ingredients}
-                inputMode={inputMode} 
-                isDoughWeightLocked={isDoughWeightLocked}
-                selectTotalDoughWeight={selectTotalDoughWeight}
-                changePercent={changePercent}
-                changeWeight={changeWeight}
-                selectTotalFlourWeight={selectTotalFlourWeight}
-                selectTotalRatio={selectTotalRatio}
-            />
-            </td>
-            </tr>
+                        <Ingredients
+                            ingredients={ingredients}
+                        />
+                    </td>
+                    {
+                        formulasList.map((formula) =>
+                            <td key={formula.id}>
+                                <FormulaTable
+                                    formula={formula}
+                                    formulaIngredients={formulaIngredients}
+                                    ingredients={ingredients}
+                                    inputMode={inputMode} 
+                                    isDoughWeightLocked={isDoughWeightLocked}
+                                    selectTotalDoughWeight={selectTotalDoughWeight}
+                                    changePercent={changePercent}
+                                    changeWeight={changeWeight}
+                                    selectTotalFlourWeight={selectTotalFlourWeight}
+                                    selectTotalRatio={selectTotalRatio}
+                                />
+                            </td>
+                        )
+                    }
+                </tr>
             </table>
             
             <DoughWeightControls 

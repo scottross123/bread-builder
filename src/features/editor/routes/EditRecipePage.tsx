@@ -12,31 +12,31 @@ const exampleRecipe: Recipe = {
             byId: {
                 "ing0": {
                     id: "ing0",
-                    name: "bread flour",
+                    name: "Bread Flour",
                     ingredientCategory: "flour",
                     formulaIngredientIds: ["fi0"],
                 },
                 "ing05": {
                     id: "ing05",
-                    name: "whole wheat flour",
+                    name: "Whole Wheat Flour",
                     ingredientCategory: "flour",
                     formulaIngredientIds: ["fi05"],
                 },
                 "ing1": {
                     id: "ing1",
-                    name: "water",
+                    name: "Water",
                     ingredientCategory: "fluid",
                     formulaIngredientIds: ["fi1"],
                 },
                 "ing2": {
                     id: "ing2",
-                    name: "salt",
+                    name: "Salt",
                     ingredientCategory: "other",
                     formulaIngredientIds: ["fi2"],
                 },
                 "ing3": {
                     id: "ing3",
-                    name: "yeast",
+                    name: "Yeast",
                     ingredientCategory: "other",
                     formulaIngredientIds: ["fi3"],
                 }

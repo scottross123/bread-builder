@@ -12,25 +12,31 @@ const Ingredients = (props: IngredientsProps) => {
     return(
         <table className="border-collapse text-left">
             <thead>
+                <tr >
+                    <Cell heading colSpan={2}>Ingredients</Cell>
+                </tr>
                 <tr>
-                    <Cell heading colSpan={2} rowSpan={2}>Ingredients</Cell>
+                    <Cell colSpan={2}>why wont this work</Cell>
                 </tr>
             </thead>
             <tbody>
             {
                 ingredientsList.map((ingredient) => 
                     <tr key={ingredient.id}>
-                        <Cell>X</Cell>
+                        <Cell><button>X</button></Cell>
                         <Cell>{ingredient.name}</Cell>
                     </tr>
                 )
             }
+            </tbody>
+
+            <tfoot>
                 <tr>
                     <Cell heading colSpan={2}>
                         Totals
                     </Cell>
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
     )
 }

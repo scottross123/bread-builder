@@ -15,7 +15,7 @@ const Cell = (props: CellProps) => {
         rowSpan,
     } = props;
 
-    const style = "border-2 p-1";
+    const style = "border-2 p-1.5";
 
     if (heading) {
         return (

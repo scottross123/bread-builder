@@ -54,7 +54,6 @@ const FormulaRow = (props: FormulaRowProps) => {
     
     return (
         <tr>
-            <Cell>{name}</Cell>
             <FormulaPercent
                 formulaIngredientId={formulaIngredientId}
                 percent={percent}
