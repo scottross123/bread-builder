@@ -6,7 +6,7 @@ import LockDoughWeight from "./LockDoughWeight";
 import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
 import { tableToList } from "@/utils";
-import Cell from "./Cell";
+import Cell from "../../../../components/Cell";
 import FinalDoughTable from "./FinalDoughTable";
 
 export type BreadFormulaProps = {
@@ -51,7 +51,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
 
     return (
         <div data-testid="bread-formula" className="">
-            <table className="border-collapse border m-auto">
+            <table className="border-collapse m-auto">
                 <tbody>
                     <tr>
                         <td>

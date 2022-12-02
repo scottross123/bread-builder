@@ -7,7 +7,7 @@ const Header = (props: HeaderProps) => {
 
     return (
         <header className="h-16 flex content-center">
-            <h1 className="text-2xl">{heading}</h1>
+            <h1 className="text-2xl p-4">{heading}</h1>
         </header>
     );
 }

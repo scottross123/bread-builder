@@ -5,7 +5,7 @@ type EditorLayoutProps = {
 const EditorLayout = (props: EditorLayoutProps) => {
     const { children } = props;
     return (
-        <div>
+        <div className="p-4 flex flex-col gap-8">
             { children }
         </div>
     )

@@ -8,7 +8,7 @@ import {
 } from "@/types";
 import { formatNumber, tableToList } from "@/utils";
 import { BreadFormulaProps } from "./BreadFormula";
-import Cell from "./Cell";
+import { Cell } from "@/components";
 import FormulaRow from "./FormulaRow";
 
 export type FormulaTableProps =  {

@@ -1,5 +1,5 @@
 import { Ingredient, Table } from "@/types";
-import Cell from "./Cell";
+import Cell from "../../../../components/Cell";
 
 type IngredientsProps = {
     ingredients: Table<Ingredient>

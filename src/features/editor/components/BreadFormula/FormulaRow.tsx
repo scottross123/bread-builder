@@ -2,7 +2,7 @@ import { FormulaIngredient } from "@/types";
 import { formatNumber } from "@/utils";
 import FormulaPercent from "./FormulaPercent";
 import FormulaWeight from "./FormulaWeight";
-import Cell from "./Cell";
+import Cell from "../../../../components/Cell";
 import { FormulaTableProps } from "./FormulaTable";
 
 

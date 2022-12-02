@@ -1,50 +1,50 @@
 import { InputMode } from "@/types";
 import { formatNumber } from "@/utils";
 import { ChangeEvent } from "react";
-import Cell from "./Cell";
+import Cell from "../../../../components/Cell";
 
 const innerCellStyling = "w-20 inline-block";
 
-type FormulaPercentProps = {
+type FormulaWeightProps = {
     formulaIngredientId: string,
-    percent: number,
-    selectFormulaTotalFlourWeight?: number,
-    primaryFlourId?: string,
+    weight: number,
+    selectFormulaTotalFlourWeight: number,
+    isFlour?: boolean,
     inputMode: InputMode,
-    changePercent:  (
+    changeWeight: (
         formulaIngredientId: string, 
-        percent: number, 
-        totalFlourWeight?: number,
-        primaryFlourId?: string,
+        weight: number, 
+        totalFlourWeight: number,
+        isFlour? : boolean,
     ) => void,
 }
 
-const FormulaPercent = (props: FormulaPercentProps) => {
+const FormulaWeight = (props: FormulaWeightProps) => {
     const {
         formulaIngredientId,
-        percent,
+        weight,
         selectFormulaTotalFlourWeight,
-        primaryFlourId,
+        isFlour,
         inputMode,
-        changePercent,
+        changeWeight
     } = props;
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseFloat(event.target.value);
-        changePercent(formulaIngredientId, value, selectFormulaTotalFlourWeight, primaryFlourId);
+        changeWeight(formulaIngredientId, value, selectFormulaTotalFlourWeight, isFlour);
     }
 
     return (
-        <Cell unit="%">
+        <Cell unit="g">
             <input 
                 className={innerCellStyling} 
                 type="number" 
-                value={formatNumber(percent)} 
+                value={formatNumber(weight)} 
                 onChange={handleChange} 
-                readOnly={inputMode === "weight"} 
+                readOnly={inputMode === "percent"} 
             />
         </Cell>
     );
 }
 
-export default FormulaPercent;
+export default FormulaWeight;

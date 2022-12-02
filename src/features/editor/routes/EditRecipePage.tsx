@@ -1,7 +1,8 @@
-import BreadFormula from "../components";
+import BreadFormula from "../components/BreadFormula";
 import { Recipe } from "@/types/Recipe";
 import { useRecipe } from "../hooks";
 import EditorLayout from "../components/EditorLayout";
+import FormulaControls from "../components/FormulaControls";
 
 const exampleRecipe: Recipe = {
     unitQuantity: 1,
@@ -134,6 +135,8 @@ const EditRecipePage = () => {
 
     return (
         <EditorLayout>
+            <>
+            <FormulaControls />
             <BreadFormula 
                 recipe={recipe}
                 changePercent={changePercent}
@@ -146,6 +149,7 @@ const EditRecipePage = () => {
                 selectTotalDoughWeight={selectTotalDoughWeight}
                 selectPreFermentWeight={selectPreFermentWeight}
             />
+            </>
         </EditorLayout>
     );
 };
