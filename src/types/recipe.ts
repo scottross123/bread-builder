@@ -18,6 +18,7 @@ export type FormulaIngredient = {
 
 export type BaseFormula = {
     id: string,
+    name: string,
     primaryFlourId: string, // should correspond to an ingredient with ingredientCategory: 'flour'
     formulaIngredientIds: string[],
 };

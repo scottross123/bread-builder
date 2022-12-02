@@ -33,25 +33,13 @@ const FormulaTable = (props: FormulaTableProps) => {
     } = props;
     const innerCellStyling = "w-20 inline-block";
 
-    // const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
-    //     const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
-    //     const { name, ingredientCategory } = ingredients.byId[formulaIngredient.ingredientId];
-    //     return {
-    //         formulaIngredientId: formulaIngredientId,
-    //         name: name,
-    //         ratio: formulaIngredient.ratio,
-    //         isFlour: ingredientCategory === "flour",
-    //     }
-    // });
-
-
     const ingredientsList = tableToList(ingredients);
 
     return (
         <table className="border-collapse border text-left">
             <thead>
                 <tr>
-                    <Cell heading colSpan={3}>{formula.id === "overall" ? "Overall Formula" : formula.id}</Cell>
+                    <Cell heading colSpan={3}>{formula.name}</Cell>
                 </tr>
                 <tr>
                     <Cell heading>Baker&apos;s %</Cell>

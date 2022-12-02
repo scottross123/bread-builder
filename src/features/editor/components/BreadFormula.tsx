@@ -74,7 +74,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
                     }
                 </tr>
             </table>
-            
+{/*             
             <DoughWeightControls 
                 unitWeight={unitWeight}
                 unitQuantity={unitQuantity}
@@ -93,7 +93,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
                 inputMode={inputMode} 
                 setInputMode={setInputMode} 
                 isDoughWeightLocked={isDoughWeightLocked}
-            />
+            /> */}
         </div>
     );
 };
