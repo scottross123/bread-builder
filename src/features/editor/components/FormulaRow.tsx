@@ -1,5 +1,4 @@
-import { ChangeEvent } from "react";
-import { FormulaIngredient, InputMode } from "@/types/recipe";
+import { FormulaIngredient } from "@/types";
 import { formatNumber } from "@/utils";
 import FormulaPercent from "./FormulaPercent";
 import FormulaWeight from "./FormulaWeight";

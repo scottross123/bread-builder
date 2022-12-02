@@ -1,4 +1,4 @@
-import { Ingredient, Table } from "@/types/recipe";
+import { Ingredient, Table } from "@/types";
 import Cell from "./Cell";
 
 type IngredientsProps = {

@@ -1,4 +1,4 @@
-import { Recipe } from "@/types/recipe";
+import { Recipe } from "@/types/Recipe";
 import { formatNumber } from "@/utils";
 import { useMemo, useCallback } from "react";
 

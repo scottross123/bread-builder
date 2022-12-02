@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Recipe, InputMode, OverallFormula, BaseFormula, Formula } from "@/types/recipe";
+import { Recipe, InputMode, Formula } from "@/types";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
 import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
-import { tableToList } from "@/utils/tableToList";
+import { tableToList } from "@/utils";
 
 export type BreadFormulaProps = {
     recipe: Recipe,

@@ -1,5 +1,5 @@
 import BreadFormula from "../components";
-import { Recipe } from "@/types/recipe";
+import { Recipe } from "@/types/Recipe";
 import { useRecipe } from "../hooks";
 import EditorLayout from "../components/EditorLayout";
 

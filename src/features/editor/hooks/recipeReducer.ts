@@ -1,4 +1,4 @@
-import { FormulaIngredient, IngredientCategory, Recipe } from "@/types/recipe";
+import { FormulaIngredient, IngredientCategory, Recipe } from "@/types/Recipe";
 import { formatNumber, getUniqueId } from "@/utils";
 
 type RecipeAction = 

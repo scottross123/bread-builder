@@ -4,9 +4,8 @@ import {
     Ingredient, 
     InputMode, 
     Table 
-} from "@/types/recipe";
-import { formatNumber } from "@/utils";
-import { tableToList } from "@/utils/tableToList";
+} from "@/types";
+import { formatNumber, tableToList } from "@/utils";
 import { BreadFormulaProps } from "./BreadFormula";
 import Cell from "./Cell";
 import FormulaRow from "./FormulaRow";

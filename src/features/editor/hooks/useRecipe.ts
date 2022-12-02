@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { Recipe } from "@/types/recipe";
+import { Recipe } from "@/types/Recipe";
 import recipeSelector from "./recipeSelector";
 import recipeReducer from "./recipeReducer";
 

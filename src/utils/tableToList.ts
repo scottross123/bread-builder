@@ -1,4 +1,4 @@
-import { Table } from "@/types/recipe";
+import { Table } from "@/types/Recipe";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const tableToList = (table: Table<any>) => {

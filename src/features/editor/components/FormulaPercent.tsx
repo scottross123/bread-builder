@@ -1,4 +1,4 @@
-import { InputMode } from "@/types/recipe";
+import { InputMode } from "@/types/Recipe";
 import { formatNumber } from "@/utils";
 import { ChangeEvent } from "react";
 import Cell from "./Cell";
