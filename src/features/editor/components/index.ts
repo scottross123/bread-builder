@@ -1,3 +1,3 @@
-import BreadRecipe from "./BreadRecipe";
+import BreadFormula from "./BreadFormula";
 
-export default BreadRecipe;
+export default BreadFormula;

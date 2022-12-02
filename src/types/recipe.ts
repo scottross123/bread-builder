@@ -28,7 +28,7 @@ export type FormulaIngredient = {
     ratio: number,
 }
 
-type BaseFormula = {
+export type BaseFormula = {
     id: string,
     primaryFlourId: string, // should correspond to an ingredient with ingredientCategory: 'flour'
     formulaIngredientIds: string[],
@@ -45,6 +45,8 @@ export type Preferment = BaseFormula & {
 export type Soaker = BaseFormula;
 
 export type Scald = BaseFormula;
+
+export type Formula = OverallFormula | Preferment | Scald | Soaker;
 
 export type Ingredient = {
     id: string,

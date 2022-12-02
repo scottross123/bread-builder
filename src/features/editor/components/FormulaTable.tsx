@@ -1,29 +1,23 @@
 import { 
+    Formula,
     FormulaIngredient, 
     Ingredient, 
     InputMode, 
-    OverallFormula, 
-    Preferment, 
-    Scald, 
-    Soaker, 
     Table 
 } from "@/types/recipe";
 import { formatNumber } from "@/utils";
+import { tableToList } from "@/utils/tableToList";
+import { BreadFormulaProps } from "./BreadFormula";
 import Cell from "./Cell";
 import FormulaRow from "./FormulaRow";
 
-type FormulaTableProps = {
-    formula: OverallFormula | Preferment | Soaker | Scald,
+export type FormulaTableProps =  {
+    formula: Formula,
     formulaIngredients: Table<FormulaIngredient>,
     ingredients: Table<Ingredient>,
     inputMode: InputMode,
     isDoughWeightLocked: boolean,
-    changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
-    changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
-    selectTotalFlourWeight: number,
-    selectTotalRatio: (formulaId: string) => number,    
-    selectTotalDoughWeight: number,
-}
+} & Omit<BreadFormulaProps, "recipe" | "changeUnitQuantity" | "changeUnitWeight" | "changeWasteFactor">;
 
 const FormulaTable = (props: FormulaTableProps) => {
     const { 
@@ -40,22 +34,25 @@ const FormulaTable = (props: FormulaTableProps) => {
     } = props;
     const innerCellStyling = "w-20 inline-block";
 
-    const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
-        const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
-        const { name, ingredientCategory } = ingredients.byId[formulaIngredient.ingredientId];
-        return {
-            formulaIngredientId: formulaIngredientId,
-            name: name,
-            ratio: formulaIngredient.ratio,
-            isFlour: ingredientCategory === "flour",
-        }
-    });
+    // const formulaIngredientsList = formula.formulaIngredientIds.map((formulaIngredientId: string) => {
+    //     const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
+    //     const { name, ingredientCategory } = ingredients.byId[formulaIngredient.ingredientId];
+    //     return {
+    //         formulaIngredientId: formulaIngredientId,
+    //         name: name,
+    //         ratio: formulaIngredient.ratio,
+    //         isFlour: ingredientCategory === "flour",
+    //     }
+    // });
+
+
+    const ingredientsList = tableToList(ingredients);
 
     return (
         <table className="border-collapse border text-left">
             <thead>
                 <tr>
-                    <Cell heading colSpan={3}>Overall Formula</Cell>
+                    <Cell heading colSpan={3}>{formula.id === "overall" ? "Overall Formula" : formula.id}</Cell>
                 </tr>
                 <tr>
                     <Cell heading>Baker&apos;s %</Cell>
@@ -64,22 +61,48 @@ const FormulaTable = (props: FormulaTableProps) => {
             </thead>
             <tbody>
                 {
-                    formulaIngredientsList.map((ingredient) => {
-                        if (ingredient.formulaIngredientId === formula.primaryFlourId) {
+                    ingredientsList.map((ingredient: Ingredient) => {
+                        const formulaIngredientId = formula.formulaIngredientIds
+                            .find(id => 
+                                formulaIngredients.byId[id].ingredientId === ingredient.id
+                            );
+
+                        
+                        const isIngredientInFormula = ingredient.formulaIngredientIds
+                            .some((formulaIngredientId: string) => 
+                                formula.formulaIngredientIds.indexOf(formulaIngredientId) >= 0
+                            );
+
+                        console.log("bruh", isIngredientInFormula);
+                        
+                        if (!formulaIngredientId || !isIngredientInFormula) {
                             return (
-                                <tr key={ingredient.formulaIngredientId}>
+                                <tr key={"undefined" + ingredient.id}>
+                                    <Cell>&nbsp;</Cell>
+                                    <Cell>&nbsp;</Cell>
+                                </tr>
+                            );
+                        }
+
+                        const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
+                        console.log("form ingred", formulaIngredient)
+
+
+                        if (formulaIngredient.id === formula.primaryFlourId) {
+                            return (
+                                <tr key={formulaIngredient.id + ingredient.id}>
                                     <Cell unit="%">
                                         <input 
                                             className={innerCellStyling}
                                             type="number"
-                                            value={formatNumber(ingredient.ratio * 100)}
+                                            value={formatNumber(formulaIngredient.ratio * 100)}
                                             readOnly
                                         />
                                     </Cell>
                                     <Cell unit="g"><input
                                         className={innerCellStyling}
                                         type="number"
-                                        value={formatNumber(ingredient.ratio * selectTotalFlourWeight)}
+                                        value={formatNumber(formulaIngredient.ratio * selectTotalFlourWeight(formula.id))}
                                         readOnly 
                                         />
                                     </Cell>
@@ -88,10 +111,11 @@ const FormulaTable = (props: FormulaTableProps) => {
                         }
                         return (
                             <FormulaRow
-                                key={ingredient.formulaIngredientId}
-                                ingredient={ingredient}
-                                primaryFlourId={ingredient.isFlour ? formula.primaryFlourId : undefined}
-                                selectTotalFlourWeight={selectTotalFlourWeight} 
+                                key={formulaIngredient.id + ingredient.id}
+                                formulaIngredient={formulaIngredient}
+                                primaryFlourId={formula.primaryFlourId}
+                                isFlour={ingredient.ingredientCategory === "flour"}
+                                totalFlourWeight={selectTotalFlourWeight(formula.id)} 
                                 inputMode={inputMode}
                                 isDoughWeightLocked={isDoughWeightLocked}
                                 changePercent={changePercent}

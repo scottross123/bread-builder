@@ -18,9 +18,9 @@ const recipeSelector = (recipe: Recipe) => {
             );
     }, [recipe.entities.formulaIngredients]);
 
-    const selectTotalFlourWeight = useMemo(() => {
+    const selectTotalFlourWeight = useCallback((formulaId: string) => {
         // console.log("select total flour weight", selectTotalDoughWeight, selectTotalRatio("overall"))
-        return selectTotalDoughWeight / selectTotalRatio("overall");
+        return selectTotalDoughWeight / selectTotalRatio(formulaId);
     }, [selectTotalDoughWeight, selectTotalRatio]);
 
     return {

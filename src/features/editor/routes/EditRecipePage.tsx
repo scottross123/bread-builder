@@ -1,4 +1,4 @@
-import BreadRecipe from "../components";
+import BreadFormula from "../components";
 import { Recipe } from "@/types/recipe";
 import { useRecipe } from "../hooks";
 import EditorLayout from "../components/EditorLayout";
@@ -20,13 +20,13 @@ const exampleRecipe: Recipe = {
                     id: "ing05",
                     name: "Whole Wheat Flour",
                     ingredientCategory: "flour",
-                    formulaIngredientIds: ["fi05"],
+                    formulaIngredientIds: ["fi05", "fi4"],
                 },
                 "ing1": {
                     id: "ing1",
                     name: "Water",
                     ingredientCategory: "fluid",
-                    formulaIngredientIds: ["fi1"],
+                    formulaIngredientIds: ["fi1", "fi5"],
                 },
                 "ing2": {
                     id: "ing2",
@@ -38,10 +38,10 @@ const exampleRecipe: Recipe = {
                     id: "ing3",
                     name: "Yeast",
                     ingredientCategory: "other",
-                    formulaIngredientIds: ["fi3"],
+                    formulaIngredientIds: ["fi3", "fi6"],
                 }
             },
-            allIds: ["ing0", "ing1", "ing05", "ing2", "ing3"],
+            allIds: ["ing0", "ing05", "ing1", "ing2", "ing3"],
         },
         formulaIngredients: {
             byId: {
@@ -75,6 +75,24 @@ const exampleRecipe: Recipe = {
                     formulaId: "overall",
                     ratio: .01
                 },
+                fi4: {
+                    id: "fi4",
+                    ingredientId: "ing05",
+                    formulaId: "pf1",
+                    ratio: 1,
+                },
+                fi5: {
+                    id: "fi5",
+                    ingredientId: "ing1",
+                    formulaId: "pf1",
+                    ratio: 1,
+                },
+                fi6: {
+                    id: "fi6",
+                    ingredientId: "ing3",
+                    formulaId: "pf1",
+                    ratio: .002,
+                }
             },
             allIds: ["fi0", "fi05", "fi1", "fi2", "fi3"],
         },
@@ -84,9 +102,14 @@ const exampleRecipe: Recipe = {
                     id: "overall",
                     primaryFlourId: "fi0",
                     formulaIngredientIds: ["fi0", "fi05", "fi1", "fi2", "fi3"]
+                },
+                pf1: {
+                    id: "pf1",
+                    primaryFlourId: "fi4",
+                    formulaIngredientIds: ["fi4", "fi5", "fi6"],
                 }
             },
-            allIds: ["overall"]
+            allIds: ["overall", "pf1"]
         }
     }
 }
@@ -107,7 +130,7 @@ const EditRecipePage = () => {
 
     return (
         <EditorLayout>
-            <BreadRecipe 
+            <BreadFormula 
                 recipe={recipe}
                 changePercent={changePercent}
                 changeWeight={changeWeight}

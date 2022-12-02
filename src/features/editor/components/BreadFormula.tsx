@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Recipe, InputMode, OverallFormula } from "@/types/recipe";
+import { Recipe, InputMode, OverallFormula, BaseFormula, Formula } from "@/types/recipe";
 import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
@@ -7,7 +7,7 @@ import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
 import { tableToList } from "@/utils/tableToList";
 
-type BreadRecipeProps = {
+export type BreadFormulaProps = {
     recipe: Recipe,
     changePercent: (id: string, percent: number, totalFlourWeight?: number) => void,
     changeWeight: (id: string, weight: number, totalFlourWeight: number) => void,
@@ -15,11 +15,11 @@ type BreadRecipeProps = {
     changeUnitQuantity: (newUnitQuantity: number) => void,
     changeWasteFactor: (newWasteFactor: number) => void,
     selectTotalDoughWeight: number,
-    selectTotalFlourWeight: number,
+    selectTotalFlourWeight: (formulaId: string) => number,
     selectTotalRatio: (formulaId: string) => number,
 }
 
-const BreadRecipe = (props: BreadRecipeProps) => {
+const BreadFormula = (props: BreadFormulaProps) => {
     const { 
         recipe: { 
             unitQuantity,
@@ -55,7 +55,7 @@ const BreadRecipe = (props: BreadRecipeProps) => {
                         />
                     </td>
                     {
-                        formulasList.map((formula) =>
+                        formulasList.map((formula: Formula) =>
                             <td key={formula.id}>
                                 <FormulaTable
                                     formula={formula}
@@ -98,4 +98,4 @@ const BreadRecipe = (props: BreadRecipeProps) => {
     );
 };
 
-export default BreadRecipe;
+export default BreadFormula;

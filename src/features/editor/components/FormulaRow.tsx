@@ -1,71 +1,50 @@
 import { ChangeEvent } from "react";
-import { InputMode } from "@/types/recipe";
+import { FormulaIngredient, InputMode } from "@/types/recipe";
 import { formatNumber } from "@/utils";
 import FormulaPercent from "./FormulaPercent";
 import FormulaWeight from "./FormulaWeight";
 import Cell from "./Cell";
+import { FormulaTableProps } from "./FormulaTable";
 
 
 
 export type FormulaRowProps = {
-    ingredient: { 
-        formulaIngredientId: string, 
-        name: string, 
-        ratio: number, 
-        isFlour: boolean 
-    }, 
-    primaryFlourId?: string,
-    selectTotalFlourWeight: number,
-    inputMode: InputMode,
-    isDoughWeightLocked: boolean,
-    changePercent:  (
-        formulaIngredientId: string, 
-        percent: number, 
-        totalFlourWeight?: number,
-        primaryFlourId?: string,
-    ) => void,
-    changeWeight: (
-        formulaIngredientId: string, 
-        weight: number, 
-        totalFlourWeight: number,
-        isFlour? : boolean,
-    ) => void,
-}
+    formulaIngredient: FormulaIngredient,
+    primaryFlourId: string,
+    totalFlourWeight: number,
+    isFlour: boolean,
+} & Pick<FormulaTableProps, | "changePercent" | "changeWeight" | "isDoughWeightLocked" | "inputMode">;
 
 const FormulaRow = (props: FormulaRowProps) => {
     const {
-        ingredient: {
-            formulaIngredientId,
-            name,
-            ratio,
-            isFlour,
-        },
+        formulaIngredient, 
         primaryFlourId,
-        selectTotalFlourWeight, 
+        totalFlourWeight,
+        isFlour, 
         inputMode, 
         isDoughWeightLocked,
         changePercent,
         changeWeight,
     } = props;
 
-    const percent = ratio * 100;
-    const weight = ratio * selectTotalFlourWeight;
-    console.log("weight", ratio, selectTotalFlourWeight, weight)
+    const percent = formulaIngredient.ratio * 100;
+    const weight = formulaIngredient.ratio * totalFlourWeight;
+    //console.log("weight", formulaIngredient.ratio, totalFlourWeight, weight)
     
     return (
         <tr>
             <FormulaPercent
-                formulaIngredientId={formulaIngredientId}
+                formulaIngredientId={formulaIngredient.id}
                 percent={percent}
-                selectTotalFlourWeight={isDoughWeightLocked ? undefined : selectTotalFlourWeight}
+                selectTotalFlourWeight={isDoughWeightLocked ? undefined : totalFlourWeight}
                 primaryFlourId={isFlour ? primaryFlourId : undefined}
                 inputMode={inputMode}
                 changePercent={changePercent}
             />
             <FormulaWeight
-                formulaIngredientId={formulaIngredientId}
+                formulaIngredientId={formulaIngredient.id}
                 weight={weight}
-                selectTotalFlourWeight={selectTotalFlourWeight}
+                selectTotalFlourWeight={totalFlourWeight}
                 isFlour={isFlour}
                 inputMode={inputMode}
                 changeWeight={changeWeight}
