@@ -60,7 +60,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                     )
                 }
                 <tr>
-                    <Cell heading colSpan={3}>{formula.name}</Cell>
+                    <Cell heading colSpan={2}>{formula.name}</Cell>
                 </tr>
                 <tr>
                     <Cell heading>Baker&apos;s %</Cell>

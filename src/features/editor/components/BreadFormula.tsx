@@ -7,6 +7,7 @@ import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
 import { tableToList } from "@/utils";
 import Cell from "./Cell";
+import FinalDoughTable from "./FinalDoughTable";
 
 export type BreadFormulaProps = {
     recipe: Recipe,
@@ -76,6 +77,11 @@ const BreadFormula = (props: BreadFormulaProps) => {
                                 </td>
                             )
                         }
+
+                        {
+                            formulasList.length > 1 && <FinalDoughTable />
+                        }
+
                     </tr>
                 </tbody>
             </table>
