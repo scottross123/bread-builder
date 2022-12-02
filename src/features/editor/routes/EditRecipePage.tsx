@@ -100,7 +100,7 @@ const exampleRecipe: Recipe = {
             byId: {
                 overall: {
                     id: "overall",
-                    name: "Overall Fomrula",
+                    name: "Overall Formula",
                     primaryFlourId: "fi0",
                     formulaIngredientIds: ["fi0", "fi05", "fi1", "fi2", "fi3"]
                 },

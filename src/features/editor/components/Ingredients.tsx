@@ -12,11 +12,14 @@ const Ingredients = (props: IngredientsProps) => {
     return(
         <table className="border-collapse text-left">
             <thead>
-                <tr >
-                    <Cell heading colSpan={2}>Ingredients</Cell>
+                <tr>
+                    <Cell colSpan={2}>&nbsp;</Cell>
                 </tr>
                 <tr>
-                    <Cell colSpan={2}>why wont this work</Cell>
+                    <Cell colSpan={2}>&nbsp;</Cell>
+                </tr>
+                <tr >
+                    <Cell heading colSpan={2}>Ingredients</Cell>
                 </tr>
             </thead>
             <tbody>

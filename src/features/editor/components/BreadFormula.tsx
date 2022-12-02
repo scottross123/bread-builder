@@ -6,6 +6,7 @@ import LockDoughWeight from "./LockDoughWeight";
 import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
 import { tableToList } from "@/utils";
+import Cell from "./Cell";
 
 export type BreadFormulaProps = {
     recipe: Recipe,
@@ -50,31 +51,33 @@ const BreadFormula = (props: BreadFormulaProps) => {
     return (
         <div data-testid="bread-formula" className="">
             <table className="border-collapse border m-auto">
-                <tr>
-                    <td>
-                        <Ingredients
-                            ingredients={ingredients}
-                        />
-                    </td>
-                    {
-                        formulasList.map((formula: Formula) =>
-                            <td key={formula.id}>
-                                <FormulaTable
-                                    formula={formula}
-                                    formulaIngredients={formulaIngredients}
-                                    ingredients={ingredients}
-                                    inputMode={inputMode} 
-                                    isDoughWeightLocked={isDoughWeightLocked}
-                                    totalWeight={formula.id === "overall" ? selectTotalDoughWeight : selectPreFermentWeight(formula.id)}
-                                    changePercent={changePercent}
-                                    changeWeight={changeWeight}
-                                    selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
-                                    selectFormulaTotalRatio={selectFormulaTotalRatio}
-                                />
-                            </td>
-                        )
-                    }
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>
+                            <Ingredients
+                                ingredients={ingredients}
+                            />
+                        </td>
+                        {
+                            formulasList.map((formula: Formula) =>
+                                <td key={formula.id}>
+                                    <FormulaTable
+                                        formula={formula}
+                                        formulaIngredients={formulaIngredients}
+                                        ingredients={ingredients}
+                                        inputMode={inputMode} 
+                                        isDoughWeightLocked={isDoughWeightLocked}
+                                        totalWeight={formula.id === "overall" ? selectTotalDoughWeight : selectPreFermentWeight(formula.id)}
+                                        changePercent={changePercent}
+                                        changeWeight={changeWeight}
+                                        selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
+                                        selectFormulaTotalRatio={selectFormulaTotalRatio}
+                                    />
+                                </td>
+                            )
+                        }
+                    </tr>
+                </tbody>
             </table>
 {/*             
             <DoughWeightControls 

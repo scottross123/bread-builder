@@ -3,6 +3,7 @@ import {
     FormulaIngredient, 
     Ingredient, 
     InputMode, 
+    Preferment, 
     Table 
 } from "@/types";
 import { formatNumber, tableToList } from "@/utils";
@@ -39,6 +40,25 @@ const FormulaTable = (props: FormulaTableProps) => {
     return (
         <table className="border-collapse border text-left">
             <thead>
+                {
+                    (formula as Preferment).preFermentedFlour ? (
+                        <tr>
+                            <Cell heading>PPF</Cell>
+                            <Cell unit="%">
+                                <input 
+                                    className={innerCellStyling}
+                                    type="number"
+                                    value={formatNumber((formula as Preferment).preFermentedFlour * 100)}
+                                    readOnly
+                                />
+                            </Cell>
+                        </tr>
+                    ) : (
+                        <tr>
+                            <Cell colSpan={2}>&nbsp;</Cell>
+                        </tr>
+                    )
+                }
                 <tr>
                     <Cell heading colSpan={3}>{formula.name}</Cell>
                 </tr>
