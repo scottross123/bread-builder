@@ -3,6 +3,7 @@ type CellProps = {
     unit?: string,
     heading?: boolean,
     colSpan?: number,
+    rowSpan?: number,
 }
 
 const Cell = (props: CellProps) => {
@@ -10,21 +11,22 @@ const Cell = (props: CellProps) => {
         children, 
         unit, 
         heading, 
-        colSpan 
+        colSpan,
+        rowSpan,
     } = props;
 
     const style = "border-2 p-1";
 
     if (heading) {
         return (
-            <th className={style} colSpan={colSpan}>
+            <th className={style} colSpan={colSpan} rowSpan={rowSpan}>
                 { children } { unit }
             </th> 
         )
     }
 
     return (
-        <td className={style} colSpan={colSpan}> 
+        <td className={style} colSpan={colSpan} rowSpan={rowSpan}> 
             { children } { unit }
         </td>
     );

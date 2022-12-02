@@ -4,6 +4,7 @@ import DoughWeightControls from "./DoughWeightControls";
 import InputModeSelection from "./InputModeSelection";
 import LockDoughWeight from "./LockDoughWeight";
 import FormulaTable from "./FormulaTable";
+import Ingredients from "./Ingredients";
 
 type BreadRecipeProps = {
     recipe: Recipe,
@@ -43,6 +44,14 @@ const BreadRecipe = (props: BreadRecipeProps) => {
 
     return (
         <div data-testid="bread-formula" className="">
+            <table className="border-collapse">
+                <tr>
+                    <td>
+            <Ingredients
+                ingredients={ingredients}
+            />
+                </td>
+                <td>
             <FormulaTable 
                 formula={formulas.byId["overall"] as OverallFormula}
                 formulaIngredients={formulaIngredients}
@@ -55,6 +64,9 @@ const BreadRecipe = (props: BreadRecipeProps) => {
                 selectTotalFlourWeight={selectTotalFlourWeight}
                 selectTotalRatio={selectTotalRatio}
             />
+            </td>
+            </tr>
+            </table>
             
             <DoughWeightControls 
                 unitWeight={unitWeight}
