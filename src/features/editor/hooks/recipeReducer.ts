@@ -26,7 +26,8 @@ type RecipeAction =
             formulaId: "overall" | string, 
             ingredientCategory: IngredientCategory 
         } }
-    | { type: "remove-ingredient", payload: string };
+    | { type: "remove-ingredient", payload: string }
+    | { type: "change-pff", payload: { formulaId: string, preFermentedFlour: number } };
 
 const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
     const { type, payload } = action;
@@ -234,6 +235,26 @@ const recipeReducer = (recipe: Recipe, action: RecipeAction): Recipe => {
                             [formulaId]: {
                                 ...recipe.entities.formulas.byId.formulaId,
                                 formulaIngredientIds: [...recipe.entities.formulas.byId.formulaId.formulaIngredientIds, formulaIngredientId]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        case "change-pff": {
+            const { formulaId, preFermentedFlour } = payload;
+
+            return {
+                ...recipe,
+                entities: {
+                    ...recipe.entities,
+                    formulas: {
+                        ...recipe.entities.formulas,
+                        byId: {
+                            ...recipe.entities.formulas.byId,
+                            [formulaId]: {
+                                ...recipe.entities.formulas.byId[formulaId],
+                                preFermentedFlour: preFermentedFlour,
                             }
                         }
                     }

@@ -12,6 +12,7 @@ export type BreadFormulaProps = {
     changeUnitWeight: (newUnitWeight: number) => void,
     changeUnitQuantity: (newUnitQuantity: number) => void,
     changeWasteFactor: (newWasteFactor: number) => void,
+    changePff: (fomrulaId: string, newPffzx: number) => void,
     selectTotalDoughWeight: number,
     selectFormulaTotalFlourWeight: (formulaId: string) => number,
     selectFormulaTotalRatio: (formulaId: string) => number,
@@ -31,6 +32,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
         }, 
         changePercent,
         changeWeight,
+        changePff,
         selectTotalDoughWeight,
         selectPreFermentWeight,
         selectFormulaTotalFlourWeight,
@@ -63,6 +65,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
                                         totalWeight={formula.id === "overall" ? selectTotalDoughWeight : selectPreFermentWeight(formula.id)}
                                         changePercent={changePercent}
                                         changeWeight={changeWeight}
+                                        changePff={changePff}
                                         selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
                                         selectFormulaTotalRatio={selectFormulaTotalRatio}
                                     />
@@ -71,7 +74,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
                         }
 
                         {
-                            formulasList.length > 1 && <FinalDoughTable />
+                            formulasList.length > 1 && <td><FinalDoughTable /></td>
                         }
 
                     </tr>

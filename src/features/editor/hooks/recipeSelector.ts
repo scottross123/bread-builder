@@ -22,8 +22,7 @@ const recipeSelector = (recipe: Recipe) => {
         // console.log("select total flour weight", selectTotalDoughWeight, selectFormulaTotalRatio("overall"))
         if (formulaId === "overall") return selectTotalDoughWeight / selectFormulaTotalRatio(formulaId);
         return (recipe.entities.formulas.byId[formulaId] as Preferment).preFermentedFlour * selectFormulaTotalFlourWeight("overall");
-    }, [selectTotalDoughWeight, selectFormulaTotalRatio]);
-
+    }, [selectTotalDoughWeight, selectFormulaTotalRatio, recipe.entities.formulas.byId]);
     const selectPreFermentWeight = useCallback((formulaId: string): number => {
         const flourWeight = selectFormulaTotalFlourWeight(formulaId);
         return recipe.entities.formulas.byId[formulaId].formulaIngredientIds

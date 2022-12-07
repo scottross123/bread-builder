@@ -10,13 +10,14 @@ import { formatNumber, tableToList } from "@/utils";
 import { BreadFormulaProps } from "./BreadFormula";
 import { Cell } from "@/components";
 import FormulaRow from "./FormulaRow";
+import PffRow from "./pffRow";
 
 export type FormulaTableProps =  {
     formula: Formula,
     formulaIngredients: Table<FormulaIngredient>,
     ingredients: Table<Ingredient>,
     totalWeight: number,
-} & Pick<BreadFormulaProps, "changePercent" | "changeWeight" | "selectFormulaTotalFlourWeight" | "selectFormulaTotalRatio" | "inputMode" | "whichWeightConstant">;
+} & Pick<BreadFormulaProps, "changePercent" | "changeWeight" | "selectFormulaTotalFlourWeight" | "selectFormulaTotalRatio" | "inputMode" | "whichWeightConstant" | "changePff">;
 
 const FormulaTable = (props: FormulaTableProps) => {
     const { 
@@ -27,6 +28,7 @@ const FormulaTable = (props: FormulaTableProps) => {
         whichWeightConstant,
         changePercent,
         changeWeight,
+        changePff,
         selectFormulaTotalFlourWeight,
         selectFormulaTotalRatio,
         totalWeight,
@@ -34,23 +36,18 @@ const FormulaTable = (props: FormulaTableProps) => {
     const innerCellStyling = "w-20 inline-block";
 
     const ingredientsList = tableToList(ingredients);
+    const preFermentedFlour: number | undefined = (formula as Preferment).preFermentedFlour;
 
     return (
         <table className="border-collapse border text-left">
             <thead>
                 {
-                    (formula as Preferment).preFermentedFlour ? (
-                        <tr>
-                            <Cell heading>PPF</Cell>
-                            <Cell unit="%">
-                                <input 
-                                    className={innerCellStyling}
-                                    type="number"
-                                    value={formatNumber((formula as Preferment).preFermentedFlour * 100)}
-                                    readOnly
-                                />
-                            </Cell>
-                        </tr>
+                    preFermentedFlour ? (
+                        <PffRow
+                            formulaId={formula.id}
+                            pffPercent={preFermentedFlour * 100}
+                            changePff={changePff}
+                        />
                     ) : (
                         <tr>
                             <Cell colSpan={2}>&nbsp;</Cell>
@@ -79,7 +76,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                                 formula.formulaIngredientIds.indexOf(formulaIngredientId) >= 0
                             );
 
-                        console.log("bruh", isIngredientInFormula);
+                        // console.log("bruh", isIngredientInFormula);
                         
                         if (!formulaIngredientId || !isIngredientInFormula) {
                             return (
@@ -91,7 +88,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                         }
 
                         const formulaIngredient = formulaIngredients.byId[formulaIngredientId];
-                        console.log("form ingred", formulaIngredient)
+                        // console.log("form ingred", formulaIngredient)
 
 
                         if (formulaIngredient.id === formula.primaryFlourId) {

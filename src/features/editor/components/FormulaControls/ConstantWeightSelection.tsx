@@ -1,4 +1,4 @@
-import { InfoTable } from "@/components";
+import { Cell, InfoTable } from "@/components";
 import { WhichWeightConstant } from "@/types";
 import { ChangeEvent } from "react";
 import { FormulaModeSelectionProps } from "./FormulaModeSelection";
@@ -23,13 +23,10 @@ const ConstantWeightSelection = (props: ConstantWeightSelectionProps) => {
     }
 
     return (
-        <InfoTable>
-            <select className="bg-inherit" onChange={handleChange}>                
-                <option value="dough">Keep dough weight constant</option>
-                <option value="flour">Keep flour weight constant</option>
-            </select>
-        </InfoTable>
-
+        <select className="bg-inherit" onChange={handleChange}>                
+            <option value="dough">Keep dough weight constant</option>
+            <option value="flour">Keep flour weight constant</option>
+        </select>
     )
 }
 

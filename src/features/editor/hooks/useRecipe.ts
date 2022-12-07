@@ -69,6 +69,16 @@ const useRecipe = (initialRecipe: Recipe) => {
             payload: newWasteFactor, // broke
         });
     }
+
+    const changePff = (formulaId: string, newPFF: number) => {
+        dispatch({
+            type: "change-pff",
+            payload: { 
+                formulaId: formulaId, 
+                preFermentedFlour: newPFF 
+            },
+        });
+    }
     
     return { 
         recipe, 
@@ -81,6 +91,7 @@ const useRecipe = (initialRecipe: Recipe) => {
         changeUnitWeight,
         changeUnitQuantity,
         changeWasteFactor,
+        changePff,
     };
 }
 
