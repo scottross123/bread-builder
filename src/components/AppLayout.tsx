@@ -10,12 +10,14 @@ const AppLayout = (props: AppLayoutProps) => {
     return (
         <div className="min-h-screen grid grid-cols-app">
             <Sidebar />
-            <Header 
-                heading="Pain de Champagne"
-            />
-            <main className="">
-                {children}
-            </main>
+            <div className="flex flex-col h-full row-span-2">
+                <Header 
+                    heading="Pain de Champagne"
+                />
+                <main className="h-full p-8">
+                    {children}
+                </main>
+            </div>
         </div>
     );
 }

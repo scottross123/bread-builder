@@ -1,14 +1,14 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { InputMode } from "@/types/Recipe";
+import { InputMode } from "@/types";
 
 type InputModeSelectionProps = {
     inputMode: InputMode,
     setInputMode: Dispatch<SetStateAction<InputMode>>,
-    isDoughWeightLocked: boolean,
+    whichWeightConstant: boolean,
 }
 
 const InputModeSelection = (props: InputModeSelectionProps) => {
-    const { inputMode, setInputMode, isDoughWeightLocked } = props;
+    const { inputMode, setInputMode, whichWeightConstant } = props;
     
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setInputMode(event.currentTarget?.value as InputMode);
 
@@ -31,7 +31,7 @@ const InputModeSelection = (props: InputModeSelectionProps) => {
                 value="weight" 
                 onChange={handleChange} 
                 checked={inputMode === 'weight'} 
-                disabled={isDoughWeightLocked}
+                disabled={whichWeightConstant}
             />
         </div>
     );

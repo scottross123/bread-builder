@@ -15,10 +15,8 @@ export type FormulaTableProps =  {
     formula: Formula,
     formulaIngredients: Table<FormulaIngredient>,
     ingredients: Table<Ingredient>,
-    inputMode: InputMode,
-    isDoughWeightLocked: boolean,
     totalWeight: number,
-} & Pick<BreadFormulaProps, "changePercent" | "changeWeight" | "selectFormulaTotalFlourWeight" | "selectFormulaTotalRatio">;
+} & Pick<BreadFormulaProps, "changePercent" | "changeWeight" | "selectFormulaTotalFlourWeight" | "selectFormulaTotalRatio" | "inputMode" | "whichWeightConstant">;
 
 const FormulaTable = (props: FormulaTableProps) => {
     const { 
@@ -26,7 +24,7 @@ const FormulaTable = (props: FormulaTableProps) => {
         formulaIngredients,
         ingredients,
         inputMode, 
-        isDoughWeightLocked,
+        whichWeightConstant,
         changePercent,
         changeWeight,
         selectFormulaTotalFlourWeight,
@@ -125,7 +123,7 @@ const FormulaTable = (props: FormulaTableProps) => {
                                 isFlour={ingredient.ingredientCategory === "flour"}
                                 totalFlourWeight={selectFormulaTotalFlourWeight(formula.id)} 
                                 inputMode={inputMode}
-                                isDoughWeightLocked={isDoughWeightLocked}
+                                whichWeightConstant={whichWeightConstant}
                                 changePercent={changePercent}
                                 changeWeight={changeWeight}
                             />

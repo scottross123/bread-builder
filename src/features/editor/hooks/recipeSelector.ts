@@ -33,6 +33,17 @@ const recipeSelector = (recipe: Recipe) => {
             }, 0);
     }, [recipe.entities])
 
+    const selectHydration = useCallback((formulaId: string): number => {
+        const formulaIngredients =  recipe.entities.formulaIngredients;
+        return formulaIngredients.allIds
+            .reduce((ratioSum, formulaIngredientId) => {
+                const formulaIngredient = formulaIngredients.byId[formulaIngredientId]; 
+                if (formulaIngredient.formulaId === formulaId)
+                    return 0;
+                return formulaIngredient.ratio
+            }, 0)
+    }, [])
+
     return {
         selectTotalDoughWeight,
         selectFormulaTotalRatio,

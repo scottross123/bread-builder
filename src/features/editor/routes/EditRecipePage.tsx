@@ -3,6 +3,8 @@ import { Recipe } from "@/types/Recipe";
 import { useRecipe } from "../hooks";
 import EditorLayout from "../components/EditorLayout";
 import FormulaControls from "../components/FormulaControls";
+import { InputMode, WhichWeightConstant } from "@/types";
+import { useState } from "react";
 
 const exampleRecipe: Recipe = {
     unitQuantity: 1,
@@ -132,28 +134,36 @@ const EditRecipePage = () => {
         changeUnitWeight,
         changeWasteFactor,
     } = useRecipe(exampleRecipe);
+    const [inputMode, setInputMode] = useState<InputMode>("percent");
+    const [whichWeightConstant, setWhichWeightConstant] = useState<WhichWeightConstant>("dough");
 
     return (
         <EditorLayout>
             <>
-            <FormulaControls 
-                unitQuantity={recipe.unitQuantity}
-                unitWeight={recipe.unitWeight}
-                changeUnitQuantity={changeUnitQuantity}
-                changeUnitWeight={changeUnitWeight}
-            />
-            <BreadFormula 
-                recipe={recipe}
-                changePercent={changePercent}
-                changeWeight={changeWeight}
-                changeUnitQuantity={changeUnitQuantity}
-                changeUnitWeight={changeUnitWeight}
-                changeWasteFactor={changeWasteFactor}
-                selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
-                selectFormulaTotalRatio={selectFormulaTotalRatio}
-                selectTotalDoughWeight={selectTotalDoughWeight}
-                selectPreFermentWeight={selectPreFermentWeight}
-            />
+                <FormulaControls 
+                    unitQuantity={recipe.unitQuantity}
+                    unitWeight={recipe.unitWeight}
+                    changeUnitQuantity={changeUnitQuantity}
+                    changeUnitWeight={changeUnitWeight}
+                    inputMode={inputMode}  
+                    setInputMode={setInputMode}
+                    whichWeightConstant={whichWeightConstant}
+                    setWhichWeightConstant={setWhichWeightConstant}
+                />
+                <BreadFormula 
+                    recipe={recipe}
+                    changePercent={changePercent}
+                    changeWeight={changeWeight}
+                    changeUnitQuantity={changeUnitQuantity}
+                    changeUnitWeight={changeUnitWeight}
+                    changeWasteFactor={changeWasteFactor}
+                    selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
+                    selectFormulaTotalRatio={selectFormulaTotalRatio}
+                    selectTotalDoughWeight={selectTotalDoughWeight}
+                    selectPreFermentWeight={selectPreFermentWeight}
+                    inputMode={inputMode}
+                    whichWeightConstant={whichWeightConstant}
+                />
             </>
         </EditorLayout>
     );

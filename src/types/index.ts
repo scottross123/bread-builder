@@ -1,4 +1,5 @@
 import { InputMode } from "./InputMode";
+import { WhichWeightConstant } from "./WhichWeightConstant";
 import { Table } from "./Table";
 import {
     IngredientCategory,
@@ -11,11 +12,11 @@ import {
     Scald,
     Formula,
     Recipe,
-
 } from "./Recipe";
 
 export type {
     InputMode,
+    WhichWeightConstant,
     Table,
     IngredientCategory,
     Ingredient,

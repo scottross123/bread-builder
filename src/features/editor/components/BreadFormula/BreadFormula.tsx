@@ -1,12 +1,8 @@
 import { useState } from "react";
-import { Recipe, InputMode, Formula } from "@/types";
-import DoughWeightControls from "./DoughWeightControls";
-import InputModeSelection from "./InputModeSelection";
-import LockDoughWeight from "./LockDoughWeight";
+import { Recipe, InputMode, Formula, WhichWeightConstant } from "@/types";
 import FormulaTable from "./FormulaTable";
 import Ingredients from "./Ingredients";
 import { tableToList } from "@/utils";
-import Cell from "../../../../components/Cell";
 import FinalDoughTable from "./FinalDoughTable";
 
 export type BreadFormulaProps = {
@@ -20,14 +16,13 @@ export type BreadFormulaProps = {
     selectFormulaTotalFlourWeight: (formulaId: string) => number,
     selectFormulaTotalRatio: (formulaId: string) => number,
     selectPreFermentWeight: (formulaId: string) => number,
+    inputMode: InputMode,
+    whichWeightConstant: WhichWeightConstant,
 }
 
 const BreadFormula = (props: BreadFormulaProps) => {
     const { 
         recipe: { 
-            unitQuantity,
-            unitWeight,
-            wasteFactor,
             entities: {
                 ingredients,
                 formulaIngredients,
@@ -36,16 +31,13 @@ const BreadFormula = (props: BreadFormulaProps) => {
         }, 
         changePercent,
         changeWeight,
-        changeUnitWeight,
-        changeUnitQuantity,
-        changeWasteFactor,
         selectTotalDoughWeight,
         selectPreFermentWeight,
         selectFormulaTotalFlourWeight,
         selectFormulaTotalRatio,
+        inputMode,
+        whichWeightConstant,
     } = props;
-    const [inputMode, setInputMode] = useState<InputMode>("percent");
-    const [isDoughWeightLocked, setIsDoughWeightLocked] = useState(true);
 
     const formulasList = tableToList(formulas);
 
@@ -67,7 +59,7 @@ const BreadFormula = (props: BreadFormulaProps) => {
                                         formulaIngredients={formulaIngredients}
                                         ingredients={ingredients}
                                         inputMode={inputMode} 
-                                        isDoughWeightLocked={isDoughWeightLocked}
+                                        whichWeightConstant={whichWeightConstant}
                                         totalWeight={formula.id === "overall" ? selectTotalDoughWeight : selectPreFermentWeight(formula.id)}
                                         changePercent={changePercent}
                                         changeWeight={changeWeight}
@@ -95,15 +87,15 @@ const BreadFormula = (props: BreadFormulaProps) => {
                 changeWasteFactor={changeWasteFactor}
             />
             <LockDoughWeight 
-                isDoughWeightLocked={isDoughWeightLocked} 
-                setIsDoughWeightLocked={setIsDoughWeightLocked}
+                whichWeightConstant={whichWeightConstant} 
+                setWhichWeightConstant={setWhichWeightConstant}
                 inputMode={inputMode}
                 setInputMode={setInputMode}
             />
             <InputModeSelection 
                 inputMode={inputMode} 
                 setInputMode={setInputMode} 
-                isDoughWeightLocked={isDoughWeightLocked}
+                whichWeightConstant={whichWeightConstant}
             /> */}
         </div>
     );

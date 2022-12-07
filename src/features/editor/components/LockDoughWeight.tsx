@@ -1,24 +1,24 @@
 import { Dispatch, SetStateAction } from "react";
-import { InputMode } from "@/types/Recipe";
+import { InputMode } from "@/types";
 
 type LockDoughWeightProps = {
-    isDoughWeightLocked: boolean,
-    setIsDoughWeightLocked: Dispatch<SetStateAction<boolean>>,
+    whichWeightConstant: boolean,
+    setWhichWeightConstant: Dispatch<SetStateAction<boolean>>,
     inputMode: InputMode,
     setInputMode: Dispatch<SetStateAction<InputMode>>,
 }
 
 const LockDoughWeight = (props: LockDoughWeightProps) => {
     const { 
-        isDoughWeightLocked, 
-        setIsDoughWeightLocked, 
+        whichWeightConstant, 
+        setWhichWeightConstant, 
         setInputMode, 
         inputMode 
     } = props;
 
     const handleChange = () => {
-        setIsDoughWeightLocked(!isDoughWeightLocked);
-        if (!isDoughWeightLocked && inputMode === "weight") setInputMode("percent")
+        setWhichWeightConstant(!whichWeightConstant);
+        if (!whichWeightConstant && inputMode === "weight") setInputMode("percent")
     }
 
     return (
@@ -27,7 +27,7 @@ const LockDoughWeight = (props: LockDoughWeightProps) => {
             <input 
                 id="lock-dough-weight" 
                 type="checkbox" 
-                checked={isDoughWeightLocked} 
+                checked={whichWeightConstant} 
                 onChange={handleChange} 
             />
         </label>
