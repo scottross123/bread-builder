@@ -151,6 +151,7 @@ const EditRecipePage = () => {
                 setInputMode={setInputMode}
                 whichWeightConstant={whichWeightConstant}
                 setWhichWeightConstant={setWhichWeightConstant}
+                selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
             />
             <BreadFormula 
                 recipe={recipe}

@@ -13,6 +13,7 @@ export type FormulaControlsProps = {
     setWhichWeightConstant: Dispatch<SetStateAction<WhichWeightConstant>>,
     inputMode: InputMode,
     setInputMode: Dispatch<SetStateAction<InputMode>>,
+    selectFormulaTotalFlourWeight: (formulaId: string) => number,
 }
 
 const FormulaControls = (props: FormulaControlsProps) => {
@@ -25,6 +26,7 @@ const FormulaControls = (props: FormulaControlsProps) => {
         setInputMode,
         whichWeightConstant,
         setWhichWeightConstant,
+        selectFormulaTotalFlourWeight,
     } = props;
 
     return (
@@ -36,7 +38,10 @@ const FormulaControls = (props: FormulaControlsProps) => {
                 changeUnitWeight={changeUnitWeight}
             />
             
-            <Vitals />
+            <Vitals
+                formulaId="overall"
+                selectFormulaTotalFlourWeight={selectFormulaTotalFlourWeight}
+            />
 
             <FormulaModeSelection 
                 inputMode={inputMode}
