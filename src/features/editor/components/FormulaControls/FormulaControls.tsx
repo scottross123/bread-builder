@@ -1,6 +1,39 @@
 import { Cell } from "@/components";
+import { formatNumber } from "@/utils";
+import { ChangeEvent } from "react";
 
-const FormulaControls = () => {
+type FormulaControlsProps = {
+    unitWeight: number,
+    unitQuantity: number,
+    changeUnitWeight: (newUnitWeight: number) => void,
+    changeUnitQuantity: (newUnitQuantity: number) => void,
+}
+
+const FormulaControls = (props: FormulaControlsProps) => {
+    const {
+        unitWeight,
+        unitQuantity,
+        changeUnitWeight,
+        changeUnitQuantity,
+    } = props;
+
+    const handleChange = (
+        input: "unit-weight" | "unit-qty" | "waste-factor",
+        event: ChangeEvent<HTMLInputElement>
+    ) => {
+        const value = parseInt(event.target.value);
+
+        switch (input) {
+            case "unit-weight": {
+                return changeUnitWeight(value);
+            }
+            case "unit-qty": {
+                return changeUnitQuantity(value);
+            }
+        }
+    }    
+
+
     return (
         <div>
             <table>
@@ -11,6 +44,8 @@ const FormulaControls = () => {
                         <input 
                             id="unit-weight" 
                             type="number" 
+                            value={formatNumber(unitWeight)}
+                            onChange={(event) => handleChange("unit-weight", event)}
                         />
                         </Cell>
                     </tr>
@@ -20,16 +55,10 @@ const FormulaControls = () => {
                             <input 
                                 id="unit-weight" 
                                 type="number" 
+                                value={formatNumber(unitQuantity)} 
+                                onChange={(event) => handleChange("unit-qty", event)}
                             />
                         </Cell>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table>
-                <tbody>
-                    <tr>
-                        <Cell></Cell>
                     </tr>
                 </tbody>
             </table>
@@ -38,3 +67,4 @@ const FormulaControls = () => {
 }
 
 export default FormulaControls;
+

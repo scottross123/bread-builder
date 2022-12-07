@@ -8,12 +8,12 @@ type AppLayoutProps = {
 const AppLayout = (props: AppLayoutProps) => {
     const { children } = props;
     return (
-        <div className="min-h-full grid grid-cols-app">
+        <div className="min-h-screen grid grid-cols-app">
             <Sidebar />
             <Header 
                 heading="Pain de Champagne"
             />
-            <main>
+            <main className="">
                 {children}
             </main>
         </div>

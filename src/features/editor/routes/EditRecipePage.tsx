@@ -136,7 +136,12 @@ const EditRecipePage = () => {
     return (
         <EditorLayout>
             <>
-            <FormulaControls />
+            <FormulaControls 
+                unitQuantity={recipe.unitQuantity}
+                unitWeight={recipe.unitWeight}
+                changeUnitQuantity={changeUnitQuantity}
+                changeUnitWeight={changeUnitWeight}
+            />
             <BreadFormula 
                 recipe={recipe}
                 changePercent={changePercent}

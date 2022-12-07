@@ -7,7 +7,7 @@ module.exports = {
                 "app": "auto 1fr"
             },
             gridTemplateColumns: {
-                "app": "minmax(150px, 20%) 1fr"
+                "app": "minmax(150px, 15%) 1fr"
             },
             colors: {
                 "base": "#212121"
