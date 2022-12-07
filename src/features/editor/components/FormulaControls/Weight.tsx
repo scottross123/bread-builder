@@ -1,4 +1,4 @@
-import { Cell } from "@/components"
+import { Cell, InfoTable } from "@/components"
 import { formatNumber } from "@/utils";
 import { ChangeEvent } from "react";
 import { FormulaControlsProps } from "./FormulaControls";
@@ -32,44 +32,40 @@ const Weight = (props: WeightProps) => {
 
 
     return (
-        <div>
-        <table>
-            <tbody>
-                <tr>
-                    <Cell heading>Unit Weight</Cell>
-                    <Cell unit="grams">
+        <InfoTable>
+            <tr>
+                <Cell heading>Unit Weight</Cell>
+                <Cell unit="grams">
+                <input 
+                    id="unit-weight" 
+                    type="number"
+                    min={0} 
+                    value={formatNumber(unitWeight)}
+                    onChange={(event) => handleChange("unit-weight", event)}
+                />
+                </Cell>
+            </tr>
+            <tr>
+                <Cell heading>Unit Quantity</Cell>
+                <Cell unit="units">
                     <input 
                         id="unit-weight" 
-                        type="number"
-                        min={0} 
-                        value={formatNumber(unitWeight)}
-                        onChange={(event) => handleChange("unit-weight", event)}
+                        type="number" 
+                        value={formatNumber(unitQuantity)} 
+                        onChange={(event) => handleChange("unit-qty", event)}
                     />
-                    </Cell>
-                </tr>
-                <tr>
-                    <Cell heading>Unit Quantity</Cell>
-                    <Cell unit="units">
-                        <input 
-                            id="unit-weight" 
-                            type="number" 
-                            value={formatNumber(unitQuantity)} 
-                            onChange={(event) => handleChange("unit-qty", event)}
-                        />
-                    </Cell>
-                </tr>
-                <tr>
-                    <Cell heading>Total Batch Weight</Cell>
-                    <Cell unit="grams">
-                        <input
-                            value={formatNumber(unitQuantity * unitWeight)}
-                            disabled
-                        />
-                    </Cell>
-                </tr>
-            </tbody>
-        </table> 
-        </div>
+                </Cell>
+            </tr>
+            <tr>
+                <Cell heading>Total Batch Weight</Cell>
+                <Cell unit="grams">
+                    <input
+                        value={formatNumber(unitQuantity * unitWeight)}
+                        disabled
+                    />
+                </Cell>
+            </tr>
+        </InfoTable>
     );
 }
 

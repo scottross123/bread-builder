@@ -38,6 +38,8 @@ const FormulaControls = (props: FormulaControlsProps) => {
                 changeUnitQuantity={changeUnitQuantity}
                 changeUnitWeight={changeUnitWeight}
             />
+            
+            <Vitals />
 
             <ConstantWeight 
                 inputMode={inputMode}
@@ -45,9 +47,6 @@ const FormulaControls = (props: FormulaControlsProps) => {
                 whichWeightConstant={whichWeightConstant}
                 setWhichWeightConstant={setWhichWeightConstant}
             />
-
-
-            <Vitals />
         </div>
     );
 }

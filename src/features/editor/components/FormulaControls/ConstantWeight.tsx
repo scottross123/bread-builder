@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { InputMode, WhichWeightConstant } from "@/types";
-import { Cell } from "@/components";
+import { Cell, InfoTable } from "@/components";
 import InputModeSelection from "./InputModeSelection";
 import { FormulaControlsProps } from "./FormulaControls";
 
@@ -22,29 +22,25 @@ const ConstantWeight = (props: ConstantWeightProps) => {
     }
 
     return (
-        <div>
-        <table>
-            <tbody>
-                <tr>
-                    <Cell>
-                        <select className="bg-inherit" onChange={handleChange}>                
-                            <option value="dough">Keep dough weight constant</option>
-                            <option value="flour">Keep flour weight constant</option>
-                        </select>
-                    </Cell>
-                </tr>
+        <InfoTable>
+            <tr>
+                <Cell>
+                    <select className="bg-inherit" onChange={handleChange}>                
+                        <option value="dough">Keep dough weight constant</option>
+                        <option value="flour">Keep flour weight constant</option>
+                    </select>
+                </Cell>
+            </tr>
 
-                <tr>
-                    <Cell>
-                        <InputModeSelection 
-                            inputMode={inputMode}
-                            setInputMode={setInputMode}
-                        />
-                    </Cell>
-                </tr>
-            </tbody>
-        </table>
-        </div>
+            <tr>
+                <Cell>
+                    <InputModeSelection 
+                        inputMode={inputMode}
+                        setInputMode={setInputMode}
+                    />
+                </Cell>
+            </tr>
+        </InfoTable>
     )
 }
 

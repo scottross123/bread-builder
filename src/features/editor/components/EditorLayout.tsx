@@ -1,5 +1,5 @@
 type EditorLayoutProps = {
-    children: JSX.Element
+    children: JSX.Element[],
 }
 
 const EditorLayout = (props: EditorLayoutProps) => {
