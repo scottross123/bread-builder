@@ -1,5 +1,5 @@
 type InfoTableProps = {
-    children: JSX.Element[],
+    children: JSX.Element | JSX.Element[],
 }
 
 const InfoTable = (props: InfoTableProps) => {

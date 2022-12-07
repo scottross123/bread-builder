@@ -1,11 +1,9 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, } from "react";
 import { InputMode } from "@/types";
+import { FormulaModeSelectionProps } from "./FormulaModeSelection";
 
-type InputModeSelectionProps = {
-    inputMode: InputMode,
-    setInputMode: Dispatch<SetStateAction<InputMode>>,
-    whichWeightConstant: boolean,
-}
+type InputModeSelectionProps = Omit<FormulaModeSelectionProps, "setWhichWeightConstant">
+
 
 const InputModeSelection = (props: InputModeSelectionProps) => {
     const { inputMode, setInputMode, whichWeightConstant } = props;
@@ -31,7 +29,7 @@ const InputModeSelection = (props: InputModeSelectionProps) => {
                 value="weight" 
                 onChange={handleChange} 
                 checked={inputMode === 'weight'} 
-                disabled={whichWeightConstant}
+                disabled={whichWeightConstant === "dough"}
             />
         </div>
     );

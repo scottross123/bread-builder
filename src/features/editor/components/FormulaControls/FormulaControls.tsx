@@ -1,9 +1,6 @@
-import { Cell } from "@/components";
 import { InputMode, WhichWeightConstant } from "@/types";
-import { formatNumber } from "@/utils";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import ConstantWeight from "./ConstantWeight";
-import InputModeSelection from "./InputModeSelection";
+import { Dispatch, SetStateAction } from "react";
+import FormulaModeSelection from "./FormulaModeSelection";
 import Vitals from "./Vitals";
 import Weight from "./Weight";
 
@@ -41,7 +38,7 @@ const FormulaControls = (props: FormulaControlsProps) => {
             
             <Vitals />
 
-            <ConstantWeight 
+            <FormulaModeSelection 
                 inputMode={inputMode}
                 setInputMode={setInputMode}
                 whichWeightConstant={whichWeightConstant}
